@@ -1,0 +1,7 @@
+{
+  "BaseVMs": [
+    "xubuntu24.04-base",
+    "windows.server.gui.2022-base",
+    "windows.server.core.2022-base"
+  ]
+}
