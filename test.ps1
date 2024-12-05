@@ -1,4 +1,4 @@
-using module ./modules/WarriorRange.psm1
+Import-Module .\modules\WarriorRange.psm1 -Force
 Write-Host "run"
 $roster_filepath = "./configs/rosters/roster.json"
 $range_filepath = "./configs/ranges/range.json"

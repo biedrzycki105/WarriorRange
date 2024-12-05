@@ -16,8 +16,9 @@ class WarriorRangeDeploy{
             $apiToken =$this.session_conf.apiToken
             $nodeAndPort = $this.session_conf.node
             
+            Write-Host $user
 
-            Connect-PveCluster -HostsAndPorts $nodeAndPort -SkipCertificateCheck -ApiToken $user@$domain!$tokenName=$apiToken
+            #Connect-PveCluster -HostsAndPorts $nodeAndPort -SkipCertificateCheck -ApiToken $user@$domain!$tokenName=$apiToken
 
     }
 }
