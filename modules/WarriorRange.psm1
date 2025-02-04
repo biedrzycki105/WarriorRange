@@ -1,4 +1,4 @@
-class WarriorRangeDeploy{
+class WarriorRangeDeploy {
     ### Define what information will be handled by the class
     [string] $roster_conf
     [string] $range_conf
@@ -18,10 +18,10 @@ class WarriorRangeDeploy{
             
             Write-Host $user
 
-            #Connect-PveCluster -HostsAndPorts $nodeAndPort -SkipCertificateCheck -ApiToken $user@$domain!$tokenName=$apiToken
+            Connect-PveCluster -HostsAndPorts $nodeAndPort -SkipCertificateCheck -ApiToken $user@$domain!$tokenName=$apiToken
 
     }
 }
-class WarriorRangeConfigure{
+class WarriorRangeConfigure {
 
 }

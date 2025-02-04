@@ -2,13 +2,11 @@
     "range01":{
         "vm01":{
             "name": "ad01",
-            "vmid": "5001",
             "base_vmid":"3004",
             "networks":["WAN","LAN","MGMT"]
         },
         "vm02":{
             "name": "xubuntu01",
-            "vmid": "5002",
             "base_vmid":"3003",
             "networks":["WAN","LAN","MGMT"]
         }
