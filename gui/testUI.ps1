@@ -1,62 +1,21 @@
-#$testButton_MouseClick = {
-#    Write-Host $listBox1.Items
-#    $listBox1.Items.Add("four")
-#    Write-Host $listBox1.Items
-#}
-
 . (Join-Path $PSScriptRoot 'testUI.designer.ps1')
 
 Add-Type -AssemblyName PresentationFramework
+Add-Type -AssemblyName System.Windows.Forms
+Add-Type -AssemblyName System.Drawing
+
+Write-Verbose "Loaded Sucessfully"
 
 $labels = @(
-    $label1,
-    $label2,
-    $label3,
-    $label4
+    $rosterLabel,
+    $envLabel,
+    $netLabel,
+    $roleLabel
 )
 
-$label1_MouseClick = {
-    $label1.BackColor = "Peru"
-    $label1.ForeColor = "WhiteSmoke"
-	
-    for ($i = 0; $i -lt $labels.Count; $i++) {
-        if ($i -ne 0) {
-            $labels[$i].BackColor = "Gainsboro"
-            $labels[$i].ForeColor = "Black"
-        }
-    }
-}
-
-
-$label2_MouseClick = {
-    $label2.BackColor = "Peru"
-    $label2.ForeColor = "WhiteSmoke"
-	
-    for ($i = 0; $i -lt $labels.Count; $i++) {
-        if ($i -ne 1) {
-            #Write-Host $labels[$i]
-            $labels[$i].BackColor = "Gainsboro"
-            $labels[$i].ForeColor = "Black"
-        }
-    }
-}
-
-$label3_MouseClick = {
-    $label3.BackColor = "Peru"
-    $label3.ForeColor = "WhiteSmoke"
-	
-    for ($i = 0; $i -lt $labels.Count; $i++) {
-        if ($i -ne 2) {
-            #Write-Host $labels[$i]
-            $labels[$i].BackColor = "Gainsboro"
-            $labels[$i].ForeColor = "Black"
-        }
-    }
-}
-
-$label4_MouseClick = {
-    $label4.BackColor = "Peru"
-    $label4.ForeColor = "WhiteSmoke"
+$roleLabel_Click = {
+    $roleLabel.BackColor = "Peru"
+    $roleLabel.ForeColor = "WhiteSmoke"
 	
     for ($i = 0; $i -lt $labels.Count; $i++) {
         if ($i -ne 3) {
@@ -67,48 +26,75 @@ $label4_MouseClick = {
     }
 }
 
-
-
-#$panels = New-Object System.Collections.Generic.List[System.Object]
-
-#$WarriorRange_Load = {
-#	$panels.Add($panel1)
-#	$panels.Add($panel2)
-#	$panels.Add($panel3)
-#	$panels[0].Visible = $true
-#	$panels[1].Visible = $false
-#	$panels[2].Visible = $false
-#}
-
-#$prevButton_Click = {
+$netLabel_Click = {
+    $netLabel.BackColor = "Peru"
+    $netLabel.ForeColor = "WhiteSmoke"
 	
-#	for($i = 0; $i -lt $panels.Count; $i++) {
+    for ($i = 0; $i -lt $labels.Count; $i++) {
+        if ($i -ne 2) {
+            #Write-Host $labels[$i]
+            $labels[$i].BackColor = "Gainsboro"
+            $labels[$i].ForeColor = "Black"
+        }
+    }
+}
 
-#		if (($panels[$i].Visible -eq $true) -and ($i -gt 0)) {
+$envLabel_Click = {
+    $envLabel.BackColor = "Peru"
+    $envLabel.ForeColor = "WhiteSmoke"
+	
+    for ($i = 0; $i -lt $labels.Count; $i++) {
+        if ($i -ne 1) {
+            #Write-Host $labels[$i]
+            $labels[$i].BackColor = "Gainsboro"
+            $labels[$i].ForeColor = "Black"
+        }
+    }
+}
 
-#			$panels[$i].Visible = $false
-#			$panels[$i - 1].Visible = $true
-#			break
+$rosterLabel_Click = {
+    $rosterLabel.BackColor = "Peru"
+    $rosterLabel.ForeColor = "WhiteSmoke"
+	
+    for ($i = 0; $i -lt $labels.Count; $i++) {
+        if ($i -ne 0) {
+            $labels[$i].BackColor = "Gainsboro"
+            $labels[$i].ForeColor = "Black"
+        }
+    }
+}
 
-#		}
 
-#	}
-#}
 
-#$nextButton_Click = {
+$panels = @{}
 
-#	for($i = 0; $i -lt $panels.Count; $i++) {
+$panels["rosterPanel"] = $rosterPanel
+$panels["envPanel"] = $envPanel
+$panels["netPanel"] = $netPanel
+$panels["rolePanel"] = $rolePanel
 
-#		if (($panels[$i].Visible -eq $true) -and ($i -lt $panels.Count - 1)) {
+#$panels["rosterPanel"].Visible = $true
+#$panels["envPanel"].Visible = $false
+#$panels["netPanel"].Visible = $false
+#$panels["rolePanel"].Visible = $false
 
-#			$panels[$i].Visible = $false
-#			$panels[$i + 1].Visible = $true
-#			break
 
-#		}
+function SetPanelView {
 
-#	}
-#}
+    param (
+        $visiblePanel
+    )
 
+    foreach ($panel in $panels.GetEnumerator()) {
+        if (($panel.value.Visible) -and $panel.value -ne $visiblePanel) {
+            $panel.value.Visible = $false
+        }
+    }
+
+    $visiblePanel.Visible = $true
+    
+}
+
+SetPanelView $rosterPanel
 
 $WarriorRange.ShowDialog()
