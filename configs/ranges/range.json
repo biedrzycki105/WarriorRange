@@ -1,14 +1,18 @@
 {
     "range01":{
-        "vm01":{
-            "name": "ad01",
-            "base_vmid":"3004",
-            "networks":["WAN","LAN","MGMT"]
-        },
-        "vm02":{
-            "name": "xubuntu01",
-            "base_vmid":"3003",
-            "networks":["WAN","LAN","MGMT"]
+        "cluster":"WarriorRange",
+        "node":"warrior01.rangel.local",
+        "pool":"range01",
+        "networks": ["WAN", "LAN", "MGMT"],
+        "vms": {
+            "vm01": {
+                "name": "ad01",
+                "base_vmid": "3004"
+            },
+            "vm02": {
+                "name": "xubuntu01",
+                "base_vmid": "3003"
+            }
         }
     }
 }

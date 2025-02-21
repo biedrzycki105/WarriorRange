@@ -1,9 +1,9 @@
 {
-    "group1":{
+    "roster01":{
         "users":["erik-adm","alex-adm","jared-adm"]
     },
-    "group2":{},
-    "group3":{},
-    "group4":{}
+    "roster02":{},
+    "roster03":{},
+    "roster04":{}
 
 }

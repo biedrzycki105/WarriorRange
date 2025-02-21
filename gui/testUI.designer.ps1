@@ -1,10 +1,12 @@
-﻿[void][System.Reflection.Assembly]::Load('System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a')
-[void][System.Reflection.Assembly]::Load('System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089')
 $WarriorRange = New-Object -TypeName System.Windows.Forms.Form
+[System.Windows.Forms.TableLayoutPanel]$Header_Body = $null
+[System.Windows.Forms.TableLayoutPanel]$Body = $null
+[System.Windows.Forms.TableLayoutPanel]$Side_Panel = $null
 [System.Windows.Forms.Label]$label4 = $null
 [System.Windows.Forms.Label]$label3 = $null
 [System.Windows.Forms.Label]$label2 = $null
 [System.Windows.Forms.Label]$label1 = $null
+[System.Windows.Forms.FlowLayoutPanel]$Button_Panel = $null
 [System.Windows.Forms.Panel]$saveContinuePanel = $null
 [System.Windows.Forms.Button]$saveAndConfigureButton = $null
 [System.Windows.Forms.Panel]$savePanel = $null
@@ -13,16 +15,12 @@ $WarriorRange = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Button]$nextButton = $null
 [System.Windows.Forms.Panel]$backPanel = $null
 [System.Windows.Forms.Button]$backButton = $null
-[System.Windows.Forms.TableLayoutPanel]$Header_Body = $null
-[System.Windows.Forms.TableLayoutPanel]$Body = $null
-[System.Windows.Forms.TableLayoutPanel]$Side_Panel = $null
 [System.Windows.Forms.TableLayoutPanel]$Information_Panel = $null
-[System.Windows.Forms.ColumnHeader]$columnHeader1 = $null
-[System.Windows.Forms.ColumnHeader]$columnHeader2 = $null
 [System.Windows.Forms.ListBox]$listBox1 = $null
 [System.Windows.Forms.ListBox]$listBox2 = $null
 [System.Windows.Forms.Button]$testButton = $null
-[System.Windows.Forms.FlowLayoutPanel]$Button_Panel = $null
+[System.Windows.Forms.ColumnHeader]$columnHeader1 = $null
+[System.Windows.Forms.ColumnHeader]$columnHeader2 = $null
 function InitializeComponent
 {
 $resources = . (Join-Path $PSScriptRoot 'testUI.resources.ps1')
@@ -61,6 +59,7 @@ $WarriorRange.SuspendLayout()
 #
 #Header_Body
 #
+$Header_Body.AllowDrop = $true
 $Header_Body.ColumnCount = [System.Int32]1
 $Header_Body.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
 $Header_Body.Controls.Add($Body,[System.Int32]0,[System.Int32]1)
@@ -125,6 +124,7 @@ $label4.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System
 $label4.TabIndex = [System.Int32]3
 $label4.Text = [System.String]'Roles and Permissions'
 $label4.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
+$label4.add_MouseClick($label4_MouseClick)
 #
 #label3
 #
@@ -138,6 +138,7 @@ $label3.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System
 $label3.TabIndex = [System.Int32]2
 $label3.Text = [System.String]'Networks'
 $label3.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
+$label3.add_MouseClick($label3_MouseClick)
 #
 #label2
 #
@@ -151,6 +152,7 @@ $label2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System
 $label2.TabIndex = [System.Int32]1
 $label2.Text = [System.String]'Environment'
 $label2.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
+$label2.add_MouseClick($label2_MouseClick)
 #
 #label1
 #
@@ -165,6 +167,7 @@ $label1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System
 $label1.TabIndex = [System.Int32]0
 $label1.Text = [System.String]'Roster'
 $label1.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
+$label1.add_MouseClick($label1_MouseClick)
 #
 #Button_Panel
 #
@@ -325,7 +328,6 @@ $WarriorRange.ClientSize = (New-Object -TypeName System.Drawing.Size -ArgumentLi
 $WarriorRange.Controls.Add($Header_Body)
 $WarriorRange.Icon = ([System.Drawing.Icon]$resources.'$this.Icon')
 $WarriorRange.MinimumSize = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]760,[System.Int32]350))
-$WarriorRange.Name = [System.String]'WarriorRange'
 $WarriorRange.Text = [System.String]'Warrior Range'
 $WarriorRange.add_Load($WarriorRange_Load)
 $Header_Body.ResumeLayout($false)
@@ -340,10 +342,14 @@ $nextPanel.ResumeLayout($false)
 $backPanel.ResumeLayout($false)
 $Information_Panel.ResumeLayout($false)
 $WarriorRange.ResumeLayout($false)
+Add-Member -InputObject $WarriorRange -Name Header_Body -Value $Header_Body -MemberType NoteProperty
+Add-Member -InputObject $WarriorRange -Name Body -Value $Body -MemberType NoteProperty
+Add-Member -InputObject $WarriorRange -Name Side_Panel -Value $Side_Panel -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name label4 -Value $label4 -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name label3 -Value $label3 -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name label2 -Value $label2 -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name label1 -Value $label1 -MemberType NoteProperty
+Add-Member -InputObject $WarriorRange -Name Button_Panel -Value $Button_Panel -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name saveContinuePanel -Value $saveContinuePanel -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name saveAndConfigureButton -Value $saveAndConfigureButton -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name savePanel -Value $savePanel -MemberType NoteProperty
@@ -352,15 +358,11 @@ Add-Member -InputObject $WarriorRange -Name nextPanel -Value $nextPanel -MemberT
 Add-Member -InputObject $WarriorRange -Name nextButton -Value $nextButton -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name backPanel -Value $backPanel -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name backButton -Value $backButton -MemberType NoteProperty
-Add-Member -InputObject $WarriorRange -Name Header_Body -Value $Header_Body -MemberType NoteProperty
-Add-Member -InputObject $WarriorRange -Name Body -Value $Body -MemberType NoteProperty
-Add-Member -InputObject $WarriorRange -Name Side_Panel -Value $Side_Panel -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name Information_Panel -Value $Information_Panel -MemberType NoteProperty
-Add-Member -InputObject $WarriorRange -Name columnHeader1 -Value $columnHeader1 -MemberType NoteProperty
-Add-Member -InputObject $WarriorRange -Name columnHeader2 -Value $columnHeader2 -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name listBox1 -Value $listBox1 -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name listBox2 -Value $listBox2 -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name testButton -Value $testButton -MemberType NoteProperty
-Add-Member -InputObject $WarriorRange -Name Button_Panel -Value $Button_Panel -MemberType NoteProperty
+Add-Member -InputObject $WarriorRange -Name columnHeader1 -Value $columnHeader1 -MemberType NoteProperty
+Add-Member -InputObject $WarriorRange -Name columnHeader2 -Value $columnHeader2 -MemberType NoteProperty
 }
 . InitializeComponent

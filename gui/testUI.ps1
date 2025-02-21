@@ -1,12 +1,15 @@
-#$testButton_MouseClick = {
-#    Write-Host $listBox1.Items
-#    $listBox1.Items.Add("four")
-#    Write-Host $listBox1.Items
-#}
+<#
+$testButton_MouseClick = {
+    Write-Host $listBox1.Items
+    $listBox1.Items.Add("four")
+    Write-Host $listBox1.Items
+}
+#>
+Add-Type -AssemblyName PresentationFramework
+Add-Type -AssemblyName System.Windows.Forms
+Add-Type -AssemblyName System.Drawing
 
 . (Join-Path $PSScriptRoot 'testUI.designer.ps1')
-
-Add-Type -AssemblyName PresentationFramework
 
 $labels = @(
     $label1,
@@ -69,46 +72,46 @@ $label4_MouseClick = {
 
 
 
-#$panels = New-Object System.Collections.Generic.List[System.Object]
+$panels = @{}
 
-#$WarriorRange_Load = {
-#	$panels.Add($panel1)
-#	$panels.Add($panel2)
-#	$panels.Add($panel3)
-#	$panels[0].Visible = $true
-#	$panels[1].Visible = $false
-#	$panels[2].Visible = $false
-#}
+$WarriorRange_Load = {
+	$panels.Add($panel1)
+	$panels.Add($panel2)
+	$panels.Add($panel3)
+	$panels[0].Visible = $true
+	$panels[1].Visible = $false
+	$panels[2].Visible = $false
+}
 
-#$prevButton_Click = {
+$prevButton_Click = {
 	
-#	for($i = 0; $i -lt $panels.Count; $i++) {
+	for($i = 0; $i -lt $panels.Count; $i++) {
 
-#		if (($panels[$i].Visible -eq $true) -and ($i -gt 0)) {
+		if (($panels[$i].Visible -eq $true) -and ($i -gt 0)) {
 
-#			$panels[$i].Visible = $false
-#			$panels[$i - 1].Visible = $true
-#			break
+			$panels[$i].Visible = $false
+			$panels[$i - 1].Visible = $true
+			break
 
-#		}
+		}
 
-#	}
-#}
+	}
+}
 
-#$nextButton_Click = {
+$nextButton_Click = {
 
-#	for($i = 0; $i -lt $panels.Count; $i++) {
+	for($i = 0; $i -lt $panels.Count; $i++) {
 
-#		if (($panels[$i].Visible -eq $true) -and ($i -lt $panels.Count - 1)) {
+		if (($panels[$i].Visible -eq $true) -and ($i -lt $panels.Count - 1)) {
 
-#			$panels[$i].Visible = $false
-#			$panels[$i + 1].Visible = $true
-#			break
+			$panels[$i].Visible = $false
+			$panels[$i + 1].Visible = $true
+			break
 
-#		}
+		}
 
-#	}
-#}
+	}
+}
 
 
 $WarriorRange.ShowDialog()
