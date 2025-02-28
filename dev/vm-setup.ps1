@@ -115,7 +115,7 @@ try {
 }
 
 # Define JSON file path
-$jsonFilePath = "/home/xubuntu/Documents/WarriorRange/WarriorRange/configs/ranges/range.json"
+$jsonFilePath = "./configs/ranges/range.json"
 
 # Load existing JSON or create a new one
 if (Test-Path $jsonFilePath) {

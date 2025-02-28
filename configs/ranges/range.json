@@ -1,18 +1,36 @@
 {
-  "range01":{
-      "cluster":"WarriorRange",
-      "node":"warrior01.rangel.local",
-      "pool":"range01",
-      "networks": ["WAN", "LAN", "MGMT"],
-      "vms": {
-          "vm01": {
-              "name": "ad01",
-              "base_vmid": "3004"
-          },
-          "vm02": {
-              "name": "xubuntu01",
-              "base_vmid": "3003"
-          }
+  "range01": {
+    "cluster": "WarriorRange",
+    "node": "warrior01.rangel.local",
+    "range_id":"1000",
+    "pool": "range01",
+    "networks": [
+      "WAN",
+      "LAN",
+      "MGMT"
+    ],
+    "vms": {
+      "vm01": {
+        "name": "ad01",
+        "base_vmid": "3004"
+      },
+      "vm02": {
+        "name": "xubuntu01",
+        "base_vmid": "3003"
       }
+    }
+  },
+  "SEC335": {
+    "networks": [
+      "LAN",
+      "WAN"
+    ],
+    "range_id": "3335",
+    "vms": {
+      "vm01": {
+        "base_vmid": "3005",
+        "name": "ad01"
+      }
+    }
   }
 }

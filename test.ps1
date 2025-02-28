@@ -7,7 +7,7 @@ $session_filepath = ".\configs\sessions\session.json"
 $range = [WarriorRange]::new($roster_filepath, $range_filepath, $session_filepath)
 
 # Access a property
-
+<#
 Write-Host $range
 Write-Host $range.range
 Write-Host $range.roster
@@ -17,6 +17,6 @@ Write-Host $range.session.domain
 Write-Host $range.session.tokenName
 Write-Host $range.session.apiToken
 Write-Host $range.session.nodePort
-Get-PveNode
-
-$range.CreateRangeNetworks("roster01", "range01")
+#>
+#$range.CreateRangeNetworks("roster01", "range01")
+$range.CreateRangeVMs("roster01", "range01")
