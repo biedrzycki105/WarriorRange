@@ -1,4 +1,6 @@
+. (Join-Path $PSScriptRoot 'Theme.ps1')
 . (Join-Path $PSScriptRoot 'testUI.designer.ps1')
+# . (Join-Path $PSScriptRoot 'login.ps1')
 
 Add-Type -AssemblyName PresentationFramework
 Add-Type -AssemblyName System.Windows.Forms
@@ -14,57 +16,62 @@ $labels = @(
 )
 
 $roleLabel_Click = {
-    $roleLabel.BackColor = "Peru"
-    $roleLabel.ForeColor = "WhiteSmoke"
+    SetPanelView $rolePanel
+
+    #active colors
+    $roleLabel.ForeColor = $theme["foreColorActive"]
+    $roleLabel.BackColor = $theme["backColorActive"]
 	
     for ($i = 0; $i -lt $labels.Count; $i++) {
         if ($i -ne 3) {
-            #Write-Host $labels[$i]
-            $labels[$i].BackColor = "Gainsboro"
-            $labels[$i].ForeColor = "Black"
+            #inactive colors
+            $labels[$i].ForeColor = $theme["foreColorInactive"]
+            $labels[$i].BackColor = $theme["backColorInactive"]
         }
     }
 }
 
 $netLabel_Click = {
-    $netLabel.BackColor = "Peru"
-    $netLabel.ForeColor = "WhiteSmoke"
+    SetPanelView $netPanel
+
+    $netLabel.ForeColor = $theme["foreColorActive"]
+    $netLabel.BackColor = $theme["backColorActive"]
 	
     for ($i = 0; $i -lt $labels.Count; $i++) {
         if ($i -ne 2) {
-            #Write-Host $labels[$i]
-            $labels[$i].BackColor = "Gainsboro"
-            $labels[$i].ForeColor = "Black"
+            $labels[$i].ForeColor = $theme["foreColorInactive"]
+            $labels[$i].BackColor = $theme["backColorInactive"]
         }
     }
 }
 
 $envLabel_Click = {
-    $envLabel.BackColor = "Peru"
-    $envLabel.ForeColor = "WhiteSmoke"
+    SetPanelView $envPanel
+
+    $envLabel.ForeColor = $theme["foreColorActive"]
+    $envLabel.BackColor = $theme["backColorActive"]
 	
     for ($i = 0; $i -lt $labels.Count; $i++) {
         if ($i -ne 1) {
-            #Write-Host $labels[$i]
-            $labels[$i].BackColor = "Gainsboro"
-            $labels[$i].ForeColor = "Black"
+            $labels[$i].ForeColor = $theme["foreColorInactive"]
+            $labels[$i].BackColor = $theme["backColorInactive"]
         }
     }
 }
 
 $rosterLabel_Click = {
-    $rosterLabel.BackColor = "Peru"
-    $rosterLabel.ForeColor = "WhiteSmoke"
+    SetPanelView $rosterPanel
+    
+    $rosterLabel.ForeColor = $theme["foreColorActive"]
+    $rosterLabel.BackColor = $theme["backColorActive"]
 	
     for ($i = 0; $i -lt $labels.Count; $i++) {
         if ($i -ne 0) {
-            $labels[$i].BackColor = "Gainsboro"
-            $labels[$i].ForeColor = "Black"
+            $labels[$i].ForeColor = $theme["foreColorInactive"]
+            $labels[$i].BackColor = $theme["backColorInactive"]
         }
     }
 }
-
-
 
 $panels = @{}
 
@@ -72,29 +79,32 @@ $panels["rosterPanel"] = $rosterPanel
 $panels["envPanel"] = $envPanel
 $panels["netPanel"] = $netPanel
 $panels["rolePanel"] = $rolePanel
+$panels["rosterPanel"].Visible = $true
+$panels["envPanel"].Visible = $false
+$panels["netPanel"].Visible = $false
+$panels["rolePanel"].Visible = $false
 
-#$panels["rosterPanel"].Visible = $true
-#$panels["envPanel"].Visible = $false
-#$panels["netPanel"].Visible = $false
-#$panels["rolePanel"].Visible = $false
 
-
-function SetPanelView {
-
-    param (
-        $visiblePanel
-    )
+function SetPanelView($visiblePanel) {
 
     foreach ($panel in $panels.GetEnumerator()) {
-        if (($panel.value.Visible) -and $panel.value -ne $visiblePanel) {
+
+        if ($panel.value.Name -ne $visiblePanel.Name) {
             $panel.value.Visible = $false
         }
+
     }
 
     $visiblePanel.Visible = $true
-    
+
 }
 
-SetPanelView $rosterPanel
+$backButton_Click = {
+
+}
+
+$nextButton_Click = {
+
+}
 
 $WarriorRange.ShowDialog()
