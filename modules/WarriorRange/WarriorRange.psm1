@@ -26,6 +26,7 @@ class WarriorRange {
         Connect-PveCluster -HostsAndPorts $this.nodeAndPort -SkipCertificateCheck -ApiToken "$($this.user)@$($this.domain)!$($this.tokenName)=$($this.apiToken)"
     }
     CreateRangeNetworks([string]$roster_name, [string]$range_name){
+        # Create the SDN Zone for the range
         Write-Host "Creating SDN Zone $range_name"
         New-PveClusterSdnZones -Zone $range_name -Type simple 
         $counter = 1000
@@ -39,21 +40,32 @@ class WarriorRange {
         }
     }
     CreateRangeVMs([string]$roster_name, [string]$range_name){
+        # Pull information from JSON and format it to be used by the CreateRangeVMs method
+        $target = $this.range.$range_name.target
         $range_id = [Int16]$this.range.$range_name.range_id * 100000
         $range_stop = $range_id + 99999
         $pool_name = $this.range.$range_name.pool
-        Write-Host $range_id
-        Write-Host $range_stop
-        Write-Host $pool_name
+        
+        # Get all the VMs that sit within the allocated range VMID set, and sort them from highest to lowest
+        $range_inventory = Get-PveVM -vmid ${range_id}:${range_stop} | Select-Object -ExpandProperty vmid| Sort-Object -Descending
+        
+        # If the range is empty, set the first VM ID to the range ID, otherwise set it to the next available VM ID
+        if ($null -eq $range_inventory){
+            $vm_clone_id = $range_id
+        } else {
+            $vm_clone_id = $range_inventory[0] + 1
+        }
+        # For each user in the roster, loop through the VMs in the range and create a clone for each
         foreach($user in $($this.roster.$roster_name.users)){
             foreach ($vm in $this.range.$range_name.vms.PSObject.Properties.Name) {
                 # Gather JSON data and format into VM name and Base VM ID variables
                 $vm_clone_name = "{0}-{1}-{2}" -f $range_name, $this.range.$range_name.vms.$vm.name, $user
                 $vm_base_id = $this.range.$range_name.vms.$vm.base_vmid
                 # Create a unique VM ID for the current clone being deployed
-                $vm_clone_id = (Get-PveVm | Where-Object {$_.vmid -gt $range_id -and $_.vmid -lt $range_stop} | Sort-Object -Descending| Select-Object -First 1).vmid + 1
                 Write-Host "Creating VM $vm_clone_name, Clone ID: $vm_clone_id"
                 Write-Host "Cloning from VM $vm_base_id"
+                New-PveNodesQemuClone -Name $vm_clone_name -Node "universe6" -Target $target -Newid $vm_clone_id -Vmid $vm_base_id -Verbose
+                $vm_clone_id++
             }
         }
     }

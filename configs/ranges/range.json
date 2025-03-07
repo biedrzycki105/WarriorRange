@@ -1,7 +1,7 @@
 {
   "range01": {
     "cluster": "WarriorRange",
-    "node": "warrior01.rangel.local",
+    "target": "warrior01",
     "range_id":"1000",
     "pool": "range01",
     "networks": [
@@ -11,10 +11,6 @@
     ],
     "vms": {
       "vm01": {
-        "name": "ad01",
-        "base_vmid": "3004"
-      },
-      "vm02": {
         "name": "xubuntu01",
         "base_vmid": "3003"
       }
