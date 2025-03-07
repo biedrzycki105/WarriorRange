@@ -43,6 +43,7 @@ $WarriorRange = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.TextBox]$passTextBox = $null
 [System.Windows.Forms.TextBox]$userTextBox = $null
 [System.Windows.Forms.Panel]$backPanel = $null
+
 function InitializeComponent
 {
 $resources = . (Join-Path $PSScriptRoot 'testUI.resources.ps1')

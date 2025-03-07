@@ -84,7 +84,6 @@ $panels["envPanel"].Visible = $false
 $panels["netPanel"].Visible = $false
 $panels["rolePanel"].Visible = $false
 
-
 function SetPanelView($visiblePanel) {
 
     foreach ($panel in $panels.GetEnumerator()) {
