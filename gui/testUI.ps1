@@ -1,12 +1,19 @@
+Import-Module Corsinvest.ProxmoxVE.Api
+
 . (Join-Path $PSScriptRoot 'Theme.ps1')
 . (Join-Path $PSScriptRoot 'testUI.designer.ps1')
-# . (Join-Path $PSScriptRoot 'login.ps1')
+. (Join-Path $PSScriptRoot 'login.ps1')
+. (Join-Path $PSScriptRoot 'roster.ps1')
+. (Join-Path $PSScriptRoot 'environment.ps1')
 
 Add-Type -AssemblyName PresentationFramework
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 
 Write-Verbose "Loaded Sucessfully"
+
+$loginPanel.Visible = $true
+$main.Visible = $false
 
 $labels = @(
     $rosterLabel,
@@ -84,6 +91,7 @@ $panels["envPanel"].Visible = $false
 $panels["netPanel"].Visible = $false
 $panels["rolePanel"].Visible = $false
 
+
 function SetPanelView($visiblePanel) {
 
     foreach ($panel in $panels.GetEnumerator()) {
@@ -104,6 +112,14 @@ $backButton_Click = {
 
 $nextButton_Click = {
 
+}
+
+$mainPanel_Load = {
+    # Load users into roster panel
+    ImportUsers
+
+    # Load Base VMs into environment panel
+    ImportBaseVMs
 }
 
 $WarriorRange.ShowDialog()
