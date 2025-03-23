@@ -1,6 +1,7 @@
 {
   "range01": {
     "cluster": "WarriorRange",
+    "base_pool": "BASE",
     "node": "warrior01",
     "range_id": "1000",
     "networks": [

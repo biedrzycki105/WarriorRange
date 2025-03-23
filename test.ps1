@@ -19,11 +19,13 @@ Write-Host $range.session.apiToken
 Write-Host $range.session.nodePort
 #>
 
-# Testing
+# Done
 $range.CreateRangeNetworks("roster01", "range01")
 
-# Pretty much done
-#$range.CreateRangeVMs("roster01", "range01")
+# Done
+$range.CreateRangeVMs("roster01", "range01")
 
 # In Development
 #$range.AssignRangePermissions("roster01", "range01")
+
+#$range.DestroyRangeNetworks("roster01", "range01")

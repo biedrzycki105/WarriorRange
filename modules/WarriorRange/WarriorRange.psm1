@@ -78,11 +78,11 @@ class WarriorRange{
         
         # Create a pool for the range if it does not exist
         $pool_status = Get-PvePools -Poolid $range_name
-        if (200 -ne $pool_status.StatusCode){
+        if ($pool_status.IsSuccessStatusCode){
+            Write-Host "Pool $range_name already exists"
+        } else {
             Write-Host "Creating pool $range_name"
             New-PvePools -Poolid $range_name -Verbose
-        } else {
-            Write-Host "Pool $range_name already exists"
         }
         # For each user in the roster, loop through the VMs in the range and create a clone for each
         foreach($user in $($this.roster.$roster_name.users)){
@@ -100,11 +100,19 @@ class WarriorRange{
                 # Gather JSON data and format into VM name and Base VM ID variables
                 $vm_clone_name = "{0}-{1}-{2}" -f $range_name, $this.range.$range_name.vms.$vm.name, $user
                 $vm_base_id = $this.range.$range_name.vms.$vm.base_vmid
-                $base_node = Get-PveNodesQemu -vmid $vm_base_id | Select-Object -ExpandProperty Node
+                $base_pool = $this.range.$range_name.base_pool
+                $vm_base_node = Get-PvePoolsIdx -Poolid $base_pool -Type qemu | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty Data | Select-Object -ExpandProperty members | Where-Object -Property vmid -eq $vm_base_id | Select-Object -ExpandProperty Node
                 # Create a unique VM ID for the current clone being deployed
-                Write-Host "Creating VM $vm_clone_name, Clone ID: $vm_clone_id"
-                Write-Host "Cloning from VM $vm_base_id"
-                New-PveNodesQemuClone -Name $vm_clone_name -Node $base_node -Target $target -Newid $vm_clone_id -Pool $range_name -Vmid $vm_base_id -Verbose
+                if((Get-PveNodesQemuIdx -Node $vm_base_node -vmid $vm_base_id).IsSuccessStatusCode -ne $true){
+                    Write-Host "Base VM $vm_base_id not found"
+                }
+                if($null -eq (Get-PveNodesQemu -Node $target | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty Data | Where-Object -Property Name -match $vm_clone_name)){
+                    Write-Host "Creating VM $vm_clone_name, Clone ID: $vm_clone_id"
+                    Write-Host "Cloning from VM $vm_base_id"
+                    New-PveNodesQemuClone -Name $vm_clone_name -Node $vm_base_node -Target $target -Newid $vm_clone_id -Pool $range_name -Vmid $vm_base_id -Verbose
+                }else{
+                    Write-Host "VM $vm_clone_name already exists"
+                }
             }
         }
 
@@ -117,12 +125,18 @@ class WarriorRange{
             
         }
     }
-    DestroyRange([string]$roster_name, [string]$range_name){
+    DestroyRangeNetworks([string]$roster_name, [string]$range_name){
         # Destroy the range and all associated VMs and networks
         $vnet_inventory = Get-PveClusterSdnVnets | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty Data | Where-Object -Property Zone -match $range_name | Select-Object -ExpandProperty vnet
         foreach($vnet in $vnet_inventory){Remove-PveClusterSdnVnets -Vnet $vnet}
         Remove-PveClusterSdnZones -Zone $range_name
-        
+        Set-PveClusterSdn
+    }
+    DestroyRangeVMs([string]$roster_name, [string]$range_name){    
+        $node = $this.range.$range_name.node
+        # Destroy the VMs in the range
+        $vm_inventory = Get-PveNodesQemu -Node $node | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty Data | Select-Object -ExpandProperty vmid
+        foreach($vm in $vm_inventory){Remove-PveNodesQemu -DestroyUnreferencedDisks -Purge -Vmid $vm -Node $node}
         Remove-PvePools -Poolid $range_name
     }
 }
