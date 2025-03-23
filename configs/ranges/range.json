@@ -1,9 +1,8 @@
 {
   "range01": {
     "cluster": "WarriorRange",
-    "target": "warrior01",
-    "range_id":"1000",
-    "pool": "range01",
+    "node": "warrior01",
+    "range_id": "1000",
     "networks": [
       "WAN",
       "LAN",
@@ -11,22 +10,12 @@
     ],
     "vms": {
       "vm01": {
-        "name": "xubuntu01",
+        "name": "xubuntu02",
         "base_vmid": "3003"
       }
-    }
-  },
-  "SEC335": {
-    "networks": [
-      "LAN",
-      "WAN"
-    ],
-    "range_id": "3335",
-    "vms": {
-      "vm01": {
-        "base_vmid": "3005",
-        "name": "ad01"
-      }
+    },
+    "roles": {
+      
     }
   }
 }

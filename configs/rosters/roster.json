@@ -1,9 +1,7 @@
 {
     "roster01":{
-        "users":["erik-adm","alex-adm","jared-adm"]
-    },
-    "roster02":{},
-    "roster03":{},
-    "roster04":{}
+        "users":["user01","user02","user03"],
+        "instructors":["erik-adm"]
+    }
 
 }
