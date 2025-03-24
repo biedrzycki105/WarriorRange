@@ -30,7 +30,7 @@
     "base_pool": "BASE",
     "node": "warrior01",
     "storage": "SharedStorage",
-    "range_id": "1000",
+    "range_id": "2000",
     "networks": ["WAN", "LAN", "MGMT"],
     "vms": {
       "vm01": {
