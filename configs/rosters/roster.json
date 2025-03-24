@@ -1,7 +1,9 @@
 {
     "roster01":{
-        "users":["user01","user02","user03"],
-        "instructors":["erik-adm"]
+        "domain":"range",
+        "groups":{
+            "users":["user01","user02","user03"],
+            "instructors":["jared-adm"]
+        }
     }
-
 }

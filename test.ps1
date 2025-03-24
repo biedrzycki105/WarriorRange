@@ -6,26 +6,6 @@ $session_filepath = ".\configs\sessions\session.json"
 # Create an instance of WarriorRangeDeploy
 $range = [WarriorRange]::new($roster_filepath, $range_filepath, $session_filepath)
 
-# Access a property
-<#
-Write-Host $range
-Write-Host $range.range
-Write-Host $range.roster
-Write-Host $range.session
-Write-Host $range.session.user
-Write-Host $range.session.domain
-Write-Host $range.session.tokenName
-Write-Host $range.session.apiToken
-Write-Host $range.session.nodePort
-#>
+#$range.DestroyRange("roster01", "range01")
 
-# Done
-$range.CreateRangeNetworks("roster01", "range01")
-
-# Done
-$range.CreateRangeVMs("roster01", "range01")
-
-# In Development
-#$range.AssignRangePermissions("roster01", "range01")
-
-#$range.DestroyRangeNetworks("roster01", "range01")
+#$range.BuildRange("roster01", "range01")

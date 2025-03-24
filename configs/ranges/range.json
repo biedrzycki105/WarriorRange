@@ -3,20 +3,44 @@
     "cluster": "WarriorRange",
     "base_pool": "BASE",
     "node": "warrior01",
+    "storage": "SharedStorage",
     "range_id": "1000",
-    "networks": [
-      "WAN",
-      "LAN",
-      "MGMT"
-    ],
+    "networks": ["WAN", "LAN", "MGMT"],
     "vms": {
       "vm01": {
-        "name": "xubuntu02",
+        "name": "xubuntu01",
+        "base_vmid": "3003"
+      },
+      "vm02": {
+        "name": "srvgui01",
+        "base_vmid": "3004"
+      },
+      "vm03": {
+        "name": "srvcore01",
+        "base_vmid": "3005"
+      }
+    },
+    "roles": {
+      "users": "warrior-student",
+      "instructors": "warrior-instructor"
+    }
+  },
+  "SYS-265": {
+    "cluster": "WarriorRange",
+    "base_pool": "BASE",
+    "node": "warrior01",
+    "storage": "SharedStorage",
+    "range_id": "1000",
+    "networks": ["WAN", "LAN", "MGMT"],
+    "vms": {
+      "vm01": {
+        "name": "xubuntu01",
         "base_vmid": "3003"
       }
     },
     "roles": {
-      
+      "users": "warrior-student",
+      "instructors": "warrior-instructor"
     }
   }
 }
