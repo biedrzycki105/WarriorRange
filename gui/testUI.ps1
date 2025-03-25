@@ -1,14 +1,21 @@
+using module .\WarriorRangeUtil.psm1
 Import-Module Corsinvest.ProxmoxVE.Api
 
 . (Join-Path $PSScriptRoot 'Theme.ps1')
 . (Join-Path $PSScriptRoot 'testUI.designer.ps1')
 . (Join-Path $PSScriptRoot 'login.ps1')
+. (Join-Path $PSScriptRoot 'roster.ps1')
+. (Join-Path $PSScriptRoot 'environment.ps1')
+. (Join-Path $PSScriptRoot 'network.ps1')
 
 Add-Type -AssemblyName PresentationFramework
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 
-Write-Verbose "Loaded Sucessfully"
+$global:utils = [WarriorRangeUtil]::new()
+
+$loginPanel.Visible = $true
+$main.Visible = $false
 
 $labels = @(
     $rosterLabel,
@@ -31,6 +38,9 @@ $roleLabel_Click = {
             $labels[$i].BackColor = $theme["backColorInactive"]
         }
     }
+    
+    # Load configurations from previous panels in order to assign roles
+    LoadConfigs
 }
 
 $netLabel_Click = {
@@ -98,6 +108,7 @@ function SetPanelView($visiblePanel) {
     }
 
     $visiblePanel.Visible = $true
+    $visiblePanel.Focus()
 
 }
 
@@ -107,6 +118,14 @@ $backButton_Click = {
 
 $nextButton_Click = {
 
+}
+
+$mainPanel_Load = {
+    # Load users into roster panel
+    ImportUsers
+
+    # Load Base VMs into environment panel
+    ImportBaseVMs
 }
 
 $WarriorRange.ShowDialog()
