@@ -8,4 +8,4 @@ $range = [WarriorRange]::new($roster_filepath, $range_filepath, $session_filepat
 
 #$range.DestroyRange("roster01", "range01")
 
-#$range.BuildRange("roster01", "range01")
+$range.BuildRange("roster01", "range01")
