@@ -33,7 +33,7 @@ $LoginButton_Click = {
 
 				$loginPanel.Visible = $false
 				$main.Visible = $true
-				#Write-Verbose "Logging in..."
+				$main.Focus()
             } else {
                 [System.Windows.Forms.MessageBox]::Show("Authentication Failed:" + $connectionProof.ReasonPhrase, "Error", "OK", "Error")
             }
