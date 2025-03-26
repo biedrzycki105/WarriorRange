@@ -28,13 +28,13 @@ $roleLabel_Click = {
     SetPanelView $rolePanel
 
     #active colors
-    $roleLabel.ForeColor = $theme["foreColorActive"]
-    $roleLabel.BackColor = $theme["backColorActive"]
+    $roleLabel.ForeColor = "WhiteSmoke"
+    $roleLabel.BackColor = "CornflowerBlue"
 	
     for ($i = 0; $i -lt $labels.Count; $i++) {
         if ($i -ne 3) {
             #inactive colors
-            $labels[$i].ForeColor = $theme["foreColorInactive"]
+            $labels[$i].ForeColor = "Black"
             $labels[$i].BackColor = $theme["backColorInactive"]
         }
     }
@@ -46,13 +46,13 @@ $roleLabel_Click = {
 $netLabel_Click = {
     SetPanelView $netPanel
 
-    $netLabel.ForeColor = $theme["foreColorActive"]
-    $netLabel.BackColor = $theme["backColorActive"]
+    $netLabel.ForeColor = "WhiteSmoke"
+    $netLabel.BackColor = "CornflowerBlue"
 	
     for ($i = 0; $i -lt $labels.Count; $i++) {
         if ($i -ne 2) {
-            $labels[$i].ForeColor = $theme["foreColorInactive"]
-            $labels[$i].BackColor = $theme["backColorInactive"]
+            $labels[$i].ForeColor = "Black"
+            $labels[$i].BackColor = "AliceBlue"
         }
     }
 }
@@ -60,13 +60,13 @@ $netLabel_Click = {
 $envLabel_Click = {
     SetPanelView $envPanel
 
-    $envLabel.ForeColor = $theme["foreColorActive"]
-    $envLabel.BackColor = $theme["backColorActive"]
+    $envLabel.ForeColor = "WhiteSmoke"
+    $envLabel.BackColor = "CornflowerBlue"
 	
     for ($i = 0; $i -lt $labels.Count; $i++) {
         if ($i -ne 1) {
-            $labels[$i].ForeColor = $theme["foreColorInactive"]
-            $labels[$i].BackColor = $theme["backColorInactive"]
+            $labels[$i].ForeColor = "Black"
+            $labels[$i].BackColor = "AliceBlue"
         }
     }
 }
@@ -74,13 +74,13 @@ $envLabel_Click = {
 $rosterLabel_Click = {
     SetPanelView $rosterPanel
     
-    $rosterLabel.ForeColor = $theme["foreColorActive"]
-    $rosterLabel.BackColor = $theme["backColorActive"]
+    $rosterLabel.ForeColor = "WhiteSmoke"
+    $rosterLabel.BackColor = "CornflowerBlue"
 	
     for ($i = 0; $i -lt $labels.Count; $i++) {
         if ($i -ne 0) {
-            $labels[$i].ForeColor = $theme["foreColorInactive"]
-            $labels[$i].BackColor = $theme["backColorInactive"]
+            $labels[$i].ForeColor = "Black"
+            $labels[$i].BackColor = "AliceBlue"
         }
     }
 }
