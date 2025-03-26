@@ -1,4 +1,4 @@
-using module .\WarriorRangeUtil.psm1
+using module ..\modules\WarriorRangeUtils\WarriorRangeUtils.psm1
 Import-Module Corsinvest.ProxmoxVE.Api
 
 . (Join-Path $PSScriptRoot 'Theme.ps1')
@@ -7,12 +7,13 @@ Import-Module Corsinvest.ProxmoxVE.Api
 . (Join-Path $PSScriptRoot 'roster.ps1')
 . (Join-Path $PSScriptRoot 'environment.ps1')
 . (Join-Path $PSScriptRoot 'network.ps1')
+. (Join-Path $PSScriptRoot 'roles.ps1')
 
 Add-Type -AssemblyName PresentationFramework
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 
-$global:utils = [WarriorRangeUtil]::new()
+$global:utils = [WarriorRangeUtils]::new()
 
 $loginPanel.Visible = $true
 $main.Visible = $false
@@ -23,6 +24,21 @@ $labels = @(
     $netLabel,
     $roleLabel
 )
+
+function SetPanelView($visiblePanel) {
+
+    foreach ($panel in $panels.GetEnumerator()) {
+
+        if ($panel.value.Name -ne $visiblePanel.Name) {
+            $panel.value.Visible = $false
+        }
+
+    }
+
+    $visiblePanel.Visible = $true
+    $visiblePanel.Focus()
+
+}
 
 $roleLabel_Click = {
     SetPanelView $rolePanel
@@ -35,7 +51,7 @@ $roleLabel_Click = {
         if ($i -ne 3) {
             #inactive colors
             $labels[$i].ForeColor = "Black"
-            $labels[$i].BackColor = $theme["backColorInactive"]
+            $labels[$i].BackColor = "AliceBlue"
         }
     }
     
@@ -95,22 +111,6 @@ $panels["rosterPanel"].Visible = $true
 $panels["envPanel"].Visible = $false
 $panels["netPanel"].Visible = $false
 $panels["rolePanel"].Visible = $false
-
-
-function SetPanelView($visiblePanel) {
-
-    foreach ($panel in $panels.GetEnumerator()) {
-
-        if ($panel.value.Name -ne $visiblePanel.Name) {
-            $panel.value.Visible = $false
-        }
-
-    }
-
-    $visiblePanel.Visible = $true
-    $visiblePanel.Focus()
-
-}
 
 $backButton_Click = {
 
