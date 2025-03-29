@@ -58,8 +58,16 @@ class WarriorRange{
             Write-Host "SDN Zone $range_name already exists"
         } else {
             Write-Host "Creating SDN Zone $range_name"
-            New-PveClusterSdnZones -Zone $range_name -Type simple
-            Set-PveClusterSdn
+            $task = (New-PveClusterSdnZones -Zone $range_name -Type simple | Select-Object -ExpandProperty Response).data
+            if(Get-PveTaskIsRunning -upid $task -ErrorAction Ignore){
+                Write-Host "Waiting for task to finish" -ForegroundColor Yellow
+                Wait-PveTaskIsFinish -upid $task | Out-Null
+            }  
+            $task = (Set-PveClusterSdn | Select-Object -ExpandProperty Response).data
+            if(Get-PveTaskIsRunning -upid $task -ErrorAction Ignore){
+                Write-Host "Waiting for task to finish" -ForegroundColor Yellow
+                Wait-PveTaskIsFinish -upid $task | Out-Null
+            }
         }
         
         # Create the networks for the range based on the JSON configuration
@@ -87,7 +95,11 @@ class WarriorRange{
                     }
                     else {
                         Write-Host "Creating network $network_name. VNet_ID: $vnet"
-                        New-PveClusterSdnVnets -Vnet $vnet -Alias $network_name -Zone $range_name 
+                        $task = (New-PveClusterSdnVnets -Vnet $vnet -Alias $network_name -Zone $range_name | Select-Object -ExpandProperty Response).data
+                        if(Get-PveTaskIsRunning -upid $task -ErrorAction Ignore){
+                            Write-Host "Waiting for task to finish" -ForegroundColor Yellow
+                            Wait-PveTaskIsFinish -upid $task | Out-Null
+                        }  
                     }   
                 }
 
@@ -96,7 +108,11 @@ class WarriorRange{
         # Reloads network configuration to apply changes
         Write-Host "Reloading network configuration"
         Start-Sleep -Seconds 5 
-        Set-PveClusterSdn
+        $task = (Set-PveClusterSdn | Select-Object -ExpandProperty Response).data
+        if(Get-PveTaskIsRunning -upid $task -ErrorAction Ignore){
+            Write-Host "Waiting for task to finish" -ForegroundColor Yellow
+            Wait-PveTaskIsFinish -upid $task | Out-Null
+        }  
     }
     CreateRangeVMs([string]$roster_name, [string]$range_name){
         $title = @"
@@ -116,7 +132,11 @@ class WarriorRange{
             Write-Host "Pool $range_name already exists"
         } else {
             Write-Host "Creating pool $range_name"
-            New-PvePools -Poolid $range_name 
+            $task = (New-PvePools -Poolid $range_name | Select-Object -ExpandProperty Response).data
+            if(Get-PveTaskIsRunning -upid $task -ErrorAction Ignore){
+                Write-Host "Waiting for task to finish" -ForegroundColor Yellow
+                Wait-PveTaskIsFinish -upid $task | Out-Null
+            }  
         }
         # For each user in the roster, loop through the VMs in the range and create a clone for each
         foreach($group in $this.roster.$roster_name.groups.PSObject.Properties.Name){
@@ -146,7 +166,11 @@ class WarriorRange{
                     }else{
                         Write-Host "Creating VM $vm_clone_name, Clone ID: $vm_clone_id"
                         Write-Host "Cloning from VM $vm_base_id"
-                        New-PveNodesQemuClone -Name $vm_clone_name -Node $vm_base_node -Target $target -Newid $vm_clone_id -Pool $range_name -Vmid $vm_base_id 
+                        $task = (New-PveNodesQemuClone -Name $vm_clone_name -Node $vm_base_node -Target $target -Newid $vm_clone_id -Pool $range_name -Vmid $vm_base_id | Select-Object -ExpandProperty Response).data
+                        if(Get-PveTaskIsRunning -upid $task -ErrorAction Ignore){
+                            Write-Host "Waiting for task to finish" -ForegroundColor Yellow
+                            Wait-PveTaskIsFinish -upid $task | Out-Null
+                        }  
                     }
                 }
             }
@@ -164,7 +188,9 @@ class WarriorRange{
         foreach($group in $this.roster.$roster_name.groups.PSObject.Properties.Name){
             $role = $this.range.$range_name.roles.$group
             foreach($user in $this.roster.$roster_name.groups.$group){
+                Write-Host "Assigning PVEPoolUser permissions to $user for pool $range_name"
                 Set-PveAccessAcl -Path /pool/$range_name -Users "$user@$domain" -Role "PVEPoolUser" 
+                Write-Host "Assigning PVEDatastoreUser permissions to $user for storage $storage"
                 Set-PveAccessAcl -Path /storage/$storage -Users "$user@$domain" -Role "PVEDatastoreUser" 
                 foreach($vmid in (Get-PveNodesQemu -Node $this.range.$range_name.node | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty Data | Where-Object -Property Name -like "$range_name*$user"| Select-Object -ExpandProperty vmid)){
                     Write-Host "Assigning $role permissions to $user for VM $vmid"
@@ -172,7 +198,7 @@ class WarriorRange{
                 }
                 foreach($vnet in (Get-PveClusterSdnVnets | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty Data | Where-Object -Property Zone -match $range_name | Where-Object -Property Alias -like "*$user*" | Select-Object -ExpandProperty vnet)){
                     Write-Host "Assigning $role permissions to $user for VNet $vnet"
-                    Set-PveAccessAcl -Path /sdn/zones/$range_name/$vnet -Users "$user@$domain" -Role $role 
+                    Set-PveAccessAcl -Path /sdn/zones/$range_name/$vnet -Users "$user@$domain" -Role $role  
                 }
             }
         }
@@ -187,13 +213,20 @@ class WarriorRange{
         # Destroy the range and all associated VMs and networks
         $vnet_inventory = Get-PveClusterSdnVnets | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty Data | Where-Object -Property Zone -match $range_name | Select-Object -ExpandProperty vnet
         foreach($vnet in $vnet_inventory){
-            Write-Host "Removing network $vnet"
-            Remove-PveClusterSdnVnets -Vnet $vnet
+            $task = (Remove-PveClusterSdnVnets -Vnet $vnet | Select-Object -ExpandProperty Response).data
+            if(Get-PveTaskIsRunning -upid $task -ErrorAction Ignore){
+                Write-Host "Waiting for task to finish" -ForegroundColor Yellow
+                Wait-PveTaskIsFinish -upid $task | Out-Null
+            }  
         }
-        Remove-PveClusterSdnZones -Zone $range_name
+        $task = (Remove-PveClusterSdnZones -Zone $range_name | Select-Object -ExpandProperty Response).data
+        Wait-PveTaskIsFinish -upid $task | Out-Null
         Write-Host "Reloading network configuration"
-        Start-Sleep -Seconds 5 
-        Set-PveClusterSdn
+        $task = (Set-PveClusterSdn | Select-Object -ExpandProperty Response).data
+        if(Get-PveTaskIsRunning -upid $task -ErrorAction Ignore){
+            Write-Host "Waiting for task to finish" -ForegroundColor Yellow
+            Wait-PveTaskIsFinish -upid $task | Out-Null
+        }  
     }
     DestroyRangeVMs([string]$roster_name, [string]$range_name){  
         $title = @"
@@ -207,7 +240,11 @@ class WarriorRange{
         $vm_inventory = Get-PveNodesQemu -Node $node | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty Data | Where-Object -Property Name -like "$range_name*" | Select-Object -ExpandProperty vmid
         foreach($vm in $vm_inventory){
             Write-Host "Destroying VM $vm"
-            Remove-PveNodesQemu -DestroyUnreferencedDisks -Purge -Vmid $vm -Node $node
+            $task = (Remove-PveNodesQemu -DestroyUnreferencedDisks -Purge -Vmid $vm -Node $node | Select-Object -ExpandProperty Response).data
+            if(Get-PveTaskIsRunning -upid $task -ErrorAction Ignore){
+                Write-Host "Waiting for task to finish" -ForegroundColor Yellow
+                Wait-PveTaskIsFinish -upid $task | Out-Null
+            }  
         }
     }
     DestroyRangePermissions([string]$roster_name, [string]$range_name){
@@ -224,34 +261,51 @@ class WarriorRange{
             foreach($user in $this.roster.$roster_name.groups.$group){
                 # Remove permissions for the users in the roster for the range pool and storage
                 Write-Host "Removing permissions for $user on pool $range_name"
-                Set-PveAccessAcl -Path /pool/$range_name -Users "$user@$domain" -Roles "PVEPoolUser" -Delete 
+                $task = (Set-PveAccessAcl -Path /pool/$range_name -Users "$user@$domain" -Roles "PVEPoolUser" -Delete | Select-Object -ExpandProperty Response).data
+                if(Get-PveTaskIsRunning -upid $task -ErrorAction Ignore){
+                    Write-Host "Waiting for task to finish" -ForegroundColor Yellow
+                    Wait-PveTaskIsFinish -upid $task | Out-Null
+                }  
                 Write-Host "Removing permissions for $user on storage $storage"
-                Set-PveAccessAcl -Path /storage/$storage -Users "$user@$domain" -Roles "PVEDatastoreUser" -Delete 
+                $task = (Set-PveAccessAcl -Path /storage/$storage -Users "$user@$domain" -Roles "PVEDatastoreUser" -Delete | Select-Object -ExpandProperty Response).data
+                if(Get-PveTaskIsRunning -upid $task -ErrorAction Ignore){
+                    Write-Host "Waiting for task to finish" -ForegroundColor Yellow
+                    Wait-PveTaskIsFinish -upid $task | Out-Null
+                }  
                 # Remove permissions for the users in the roster for the VMs in the range
                 foreach($vmid in (Get-PveNodesQemu -Node $this.range.$range_name.node | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty Data | Where-Object -Property Name -like "$range_name*$user"| Select-Object -ExpandProperty vmid)){
                     Write-Host "Removing $role permissions for $user on VM $vmid"
-                    Set-PveAccessAcl -Path /vms/$vmid -Users "$user@$domain" -Roles $role -Delete 
+                    $task = Set-PveAccessAcl -Path /vms/$vmid -Users "$user@$domain" -Roles $role -Delete | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty data
+                    if(Get-PveTaskIsRunning -upid $task -ErrorAction Ignore){
+                        Write-Host "Waiting for task to finish" -ForegroundColor Yellow
+                        Wait-PveTaskIsFinish -upid $task | Out-Null
+                    }  
                 }
                 # Remove permissions for the users in the roster for the VNets in the range
                 foreach($vnet in (Get-PveClusterSdnVnets | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty Data | Where-Object -Property Zone -match $range_name | Where-Object -Property Alias -like "*$user*" | Select-Object -ExpandProperty vnet)){
                     Write-Host "Removing $role permissions for $user on VNet $vnet"
-                    Set-PveAccessAcl -Path /sdn/zones/$range_name/$vnet -Users "$user@$domain" -Roles $role -Delete 
+                    $task = (Set-PveAccessAcl -Path /sdn/zones/$range_name/$vnet -Users "$user@$domain" -Roles $role -Delete | Select-Object -ExpandProperty Response).data
+                    if(Get-PveTaskIsRunning -upid $task -ErrorAction Ignore){
+                        Write-Host "Waiting for task to finish" -ForegroundColor Yellow
+                        Wait-PveTaskIsFinish -upid $task | Out-Null
+                    }  
                 }
             }
         }
     }
     DestroyRangePool([string]$range_name){
         # Destroy the pool for the range
-        Remove-PvePools -Poolid $range_name
+        $task = (Remove-PvePools -Poolid $range_name | Select-Object -ExpandProperty Response).data
+        if(Get-PveTaskIsRunning -upid $task -ErrorAction Ignore){
+            Write-Host "Waiting for task to finish" -ForegroundColor Yellow
+            Wait-PveTaskIsFinish -upid $task | Out-Null
+        }  
     }
     DestroyRange([string]$roster_name, [string]$range_name){
         # Destroy the range and all associated VMs, networks, and permissions
         $this.DestroyRangePermissions($roster_name, $range_name)
-        Start-Sleep -Seconds 5
         $this.DestroyRangeNetworks($roster_name, $range_name)
-        Start-Sleep -Seconds 5
         $this.DestroyRangeVMs($roster_name, $range_name)
-        Start-Sleep -Seconds 5
         $this.DestroyRangePool($range_name)
     }
     BuildRange([string]$roster_name, [string]$range_name){
