@@ -1,4 +1,20 @@
 Write-Output "Module imported successfully"
+function WarriorRangeBanner(){
+    $banner = @"
+
+     _    _                 _           ______                       
+    | |  | |               (_)          | ___ \                      
+    | |  | | __ _ _ __ _ __ _  ___  _ __| |_/ /__ _ _ __   __ _  ___ 
+    | |/\| |/ _  |  __|  __| |/ _ \|  __|    // _  |  _ \ / _  |/ _ \
+    \  /\  / (_| | |  | |  | | (_) | |  | |\ \ (_| | | | | (_| |  __/
+     \/  \/ \__,_|_|  |_|  |_|\___/|_|  \_| \_\__,_|_| |_|\__, |\___|
+                                                           __/ |     
+                                                          |___/      
+"@
+
+Write-Host $banner -ForegroundColor Cyan
+
+}
 class WarriorRange{
     ### Define what information will be handled by the class
     $roster
@@ -23,10 +39,17 @@ class WarriorRange{
         $this.apiToken = $this.session.apiToken
         $this.nodeAndPort = $this.session.nodePort
 
+        WarriorRangeBanner
         Connect-PveCluster -HostsAndPorts $this.nodeAndPort -SkipCertificateCheck -ApiToken "$($this.pve_user)@$($this.pve_user_domain)!$($this.tokenName)=$($this.apiToken)"
     }
     ### Define the methods that will be used to interact with the class
     CreateRangeNetworks([string]$roster_name, [string]$range_name) {
+        $title = @"
+======================
+= DEPLOYING NETWORKS =
+======================
+"@
+        Write-Host $title -ForegroundColor Cyan
         $range_id = [Int16]$this.range.$range_name.range_id
         $full_range = 0..999
         
@@ -76,6 +99,12 @@ class WarriorRange{
         Set-PveClusterSdn
     }
     CreateRangeVMs([string]$roster_name, [string]$range_name){
+        $title = @"
+==============================
+= DEPLOYING VIRTUAL MACHINES =
+==============================
+"@
+        Write-Host $title -ForegroundColor Cyan
         # Pull information from JSON and format it to be used by the CreateRangeVMs method
         $target = $this.range.$range_name.node
         $range_id = [Int16]$this.range.$range_name.range_id * 100000
@@ -124,6 +153,12 @@ class WarriorRange{
         }
     }
     AssignRangePermissions([string]$roster_name, [string]$range_name){
+        $title = @"
+=========================
+= ASSIGNING PERMISSIONS =
+=========================
+"@
+        Write-Host $title -ForegroundColor Cyan
         $storage = $this.range.$range_name.storage
         $domain = $this.roster.$roster_name.domain
         foreach($group in $this.roster.$roster_name.groups.PSObject.Properties.Name){
@@ -143,15 +178,30 @@ class WarriorRange{
         }
     }
     DestroyRangeNetworks([string]$roster_name, [string]$range_name){
+        $title = @"
+=====================
+= REMOVING NETWORKS =
+=====================
+"@
+        Write-Host $title -ForegroundColor Cyan
         # Destroy the range and all associated VMs and networks
         $vnet_inventory = Get-PveClusterSdnVnets | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty Data | Where-Object -Property Zone -match $range_name | Select-Object -ExpandProperty vnet
-        foreach($vnet in $vnet_inventory){Remove-PveClusterSdnVnets -Vnet $vnet}
+        foreach($vnet in $vnet_inventory){
+            Write-Host "Removing network $vnet"
+            Remove-PveClusterSdnVnets -Vnet $vnet
+        }
         Remove-PveClusterSdnZones -Zone $range_name
         Write-Host "Reloading network configuration"
         Start-Sleep -Seconds 5 
         Set-PveClusterSdn
     }
-    DestroyRangeVMs([string]$roster_name, [string]$range_name){    
+    DestroyRangeVMs([string]$roster_name, [string]$range_name){  
+        $title = @"
+=============================
+= REMOVING VIRTUAL MACHINES =
+=============================
+"@
+        Write-Host $title -ForegroundColor Cyan  
         $node = $this.range.$range_name.node
         # Destroy the VMs in the range
         $vm_inventory = Get-PveNodesQemu -Node $node | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty Data | Where-Object -Property Name -like "$range_name*" | Select-Object -ExpandProperty vmid
@@ -161,6 +211,12 @@ class WarriorRange{
         }
     }
     DestroyRangePermissions([string]$roster_name, [string]$range_name){
+        $title = @"
+========================
+= REMOVING PERMISSIONS =
+========================
+"@
+        Write-Host $title -ForegroundColor Cyan
         $storage = $this.range.$range_name.storage
         $domain = $this.roster.$roster_name.domain
         foreach($group in $this.roster.$roster_name.groups.PSObject.Properties.Name){
