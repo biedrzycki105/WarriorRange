@@ -18,8 +18,7 @@ function CleanData {
 
 function ImportUsers {
 
-	$users = Get-PveAccessUsers
-	$users = $users.ToData().userid
+	$users = (Get-PveAccessUsers).ToData().userid
 	$filteredUsers = CleanData $users
 	
 	foreach ($user in $filteredUsers) {
