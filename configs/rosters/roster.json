@@ -2,8 +2,33 @@
     "roster01":{
         "domain":"range",
         "groups":{
-            "users":["user01","user02","user03"],
-            "instructors":["jared-adm"]
+            "users":["naruto.uzumaki",
+                "sasuke.uchiha",
+                "sakura.haruno",
+                "hinata.hyuga",
+                "shikamaru.nara",
+                "ino.yamanaka",
+                "choji.akimichi",
+                "kiba.inuzuka",
+                "shino.aburame",
+                "neji.hyuga",
+                "rock.lee",
+                "tenten.shinobi",
+                "might.guy",
+                "itachi.uchiha",
+                "kisame.hoshigaki",
+                "minato.namikaze",
+                "kushina.uzumaki",
+                "obito.uchiha",
+                "madara.uchiha",
+                "hashirama.senju",
+                "tobirama.senju",
+                "kurenai.yuhi",
+                "asuma.sarutobi",
+                "iruka.umino",
+                "anko.mitarashi",
+                "yamato.tenzo"],
+            "instructors":["kakashi.hatake"]
         }
     }
 }
