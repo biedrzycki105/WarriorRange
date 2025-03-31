@@ -6,7 +6,7 @@ $session_filepath = ".\configs\sessions\session.json"
 # Create an instance of WarriorRangeDeploy
 $range = [WarriorRange]::new($roster_filepath, $range_filepath, $session_filepath)
 
-$range.DestroyRange("roster01", "range01")
+#$range.DestroyRange("roster01", "range01")
 #$range.DestroyRangePermissions("roster01", "range01")
 
-#$range.BuildRange("roster01", "range01")
+$range.BuildRange("roster01", "range01")

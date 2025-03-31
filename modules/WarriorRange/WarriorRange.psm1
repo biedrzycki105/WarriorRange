@@ -59,7 +59,7 @@ class WarriorRange{
         } else {
             Write-Host "Creating SDN Zone $range_name"
             New-PveClusterSdnZones -Zone $range_name -Type simple 
-            $task = Set-PveClusterSdn 
+            $task = (Set-PveClusterSdn | Select-Object -ExpandProperty Response).data
             if(Get-PveTaskIsRunning -upid $task -ErrorAction Ignore){
                 Write-Host "Waiting for task to finish" -ForegroundColor Yellow
                 Wait-PveTaskIsFinish -upid $task | Out-Null
