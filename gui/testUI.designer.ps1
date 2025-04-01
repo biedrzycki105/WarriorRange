@@ -53,21 +53,12 @@ $WarriorRange = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.TreeView]$envImportTreeView = $null
 [System.Windows.Forms.TableLayoutPanel]$tableLayoutPanel10 = $null
 [System.Windows.Forms.GroupBox]$envConfigGroupBox = $null
-[System.Windows.Forms.TableLayoutPanel]$tableLayoutPanel13 = $null
-[System.Windows.Forms.Label]$label4 = $null
-[System.Windows.Forms.TableLayoutPanel]$tableLayoutPanel12 = $null
-[System.Windows.Forms.Label]$label3 = $null
 [System.Windows.Forms.TableLayoutPanel]$tableLayoutPanel11 = $null
 [System.Windows.Forms.Label]$label2 = $null
-[System.Windows.Forms.TextBox]$envNameTextBox = $null
-[System.Windows.Forms.ComboBox]$envMemDropDown = $null
-[System.Windows.Forms.ComboBox]$envProcDropDown = $null
 [System.Windows.Forms.Button]$envSelectButton = $null
 [System.Windows.Forms.Button]$envAddButton = $null
 [System.Windows.Forms.ColumnHeader]$nameCol = $null
 [System.Windows.Forms.ColumnHeader]$vmCol = $null
-[System.Windows.Forms.ColumnHeader]$cpuCol = $null
-[System.Windows.Forms.ColumnHeader]$ramCol = $null
 [System.Windows.Forms.ListView]$envSummaryListView = $null
 [System.Windows.Forms.TableLayoutPanel]$tableLayoutPanel14 = $null
 [System.Windows.Forms.GroupBox]$groupBox2 = $null
@@ -95,14 +86,21 @@ $WarriorRange = New-Object -TypeName System.Windows.Forms.Form
 [System.Windows.Forms.Panel]$deployPanel = $null
 [System.Windows.Forms.TableLayoutPanel]$tableLayoutPanel18 = $null
 [System.Windows.Forms.GroupBox]$groupBox3 = $null
-[System.Windows.Forms.Button]$button1 = $null
-[System.Windows.Forms.Panel]$panel8 = $null
-[System.Windows.Forms.GroupBox]$groupBox6 = $null
-[System.Windows.Forms.ListBox]$permNetListBox = $null
-[System.Windows.Forms.GroupBox]$groupBox5 = $null
-[System.Windows.Forms.ListBox]$permVMListBox = $null
 [System.Windows.Forms.GroupBox]$groupBox4 = $null
 [System.Windows.Forms.TreeView]$permGroupTreeView = $null
+[System.Windows.Forms.GroupBox]$groupBox5 = $null
+[System.Windows.Forms.TableLayoutPanel]$tableLayoutPanel20 = $null
+[System.Windows.Forms.Panel]$panel10 = $null
+[System.Windows.Forms.TextBox]$envNameTextBox = $null
+[System.Windows.Forms.Button]$roleAssignButton = $null
+[System.Windows.Forms.FlowLayoutPanel]$roleFlowLayoutPanel = $null
+[System.Windows.Forms.TableLayoutPanel]$tableLayoutPanel13 = $null
+[System.Windows.Forms.TableLayoutPanel]$tableLayoutPanel21 = $null
+[System.Windows.Forms.Label]$roleSelectedLabel = $null
+[System.Windows.Forms.Button]$roleSelectButton = $null
+[System.Windows.Forms.TableLayoutPanel]$tableLayoutPanel19 = $null
+[System.Windows.Forms.Label]$label3 = $null
+[System.Windows.Forms.ComboBox]$roleComboBox = $null
 [System.Windows.Forms.GroupBox]$usernameGroupBox = $null
 function InitializeComponent
 {
@@ -122,44 +120,17 @@ $backButton = (New-Object -TypeName System.Windows.Forms.Button)
 $informationPanel = (New-Object -TypeName System.Windows.Forms.Panel)
 $rolePanel = (New-Object -TypeName System.Windows.Forms.Panel)
 $tableLayoutPanel17 = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
+$tableLayoutPanel13 = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
+$roleAssignButton = (New-Object -TypeName System.Windows.Forms.Button)
+$tableLayoutPanel21 = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
+$roleSelectButton = (New-Object -TypeName System.Windows.Forms.Button)
+$roleSelectedLabel = (New-Object -TypeName System.Windows.Forms.Label)
 $tableLayoutPanel18 = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
-$groupBox6 = (New-Object -TypeName System.Windows.Forms.GroupBox)
-$permNetListBox = (New-Object -TypeName System.Windows.Forms.ListBox)
-$groupBox5 = (New-Object -TypeName System.Windows.Forms.GroupBox)
-$permVMListBox = (New-Object -TypeName System.Windows.Forms.ListBox)
 $groupBox4 = (New-Object -TypeName System.Windows.Forms.GroupBox)
 $permGroupTreeView = (New-Object -TypeName System.Windows.Forms.TreeView)
+$groupBox5 = (New-Object -TypeName System.Windows.Forms.GroupBox)
 $groupBox3 = (New-Object -TypeName System.Windows.Forms.GroupBox)
-$panel8 = (New-Object -TypeName System.Windows.Forms.Panel)
-$button1 = (New-Object -TypeName System.Windows.Forms.Button)
-$deployPanel = (New-Object -TypeName System.Windows.Forms.Panel)
-$envPanel = (New-Object -TypeName System.Windows.Forms.Panel)
-$tableLayoutPanel7 = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
-$tableLayoutPanel8 = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
-$envImportTreeView = (New-Object -TypeName System.Windows.Forms.TreeView)
-$envSelectButton = (New-Object -TypeName System.Windows.Forms.Button)
-$tableLayoutPanel14 = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
-$groupBox2 = (New-Object -TypeName System.Windows.Forms.GroupBox)
-$textBox2 = (New-Object -TypeName System.Windows.Forms.TextBox)
-$tableLayoutPanel9 = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
-$envConfigGroupBox = (New-Object -TypeName System.Windows.Forms.GroupBox)
-$tableLayoutPanel10 = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
-$tableLayoutPanel13 = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
-$envMemDropDown = (New-Object -TypeName System.Windows.Forms.ComboBox)
-$label4 = (New-Object -TypeName System.Windows.Forms.Label)
-$tableLayoutPanel12 = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
-$label3 = (New-Object -TypeName System.Windows.Forms.Label)
-$envProcDropDown = (New-Object -TypeName System.Windows.Forms.ComboBox)
-$tableLayoutPanel11 = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
-$label2 = (New-Object -TypeName System.Windows.Forms.Label)
-$envNameTextBox = (New-Object -TypeName System.Windows.Forms.TextBox)
-$envAddButton = (New-Object -TypeName System.Windows.Forms.Button)
-$envSummaryListView = (New-Object -TypeName System.Windows.Forms.ListView)
-$nameCol = (New-Object -TypeName System.Windows.Forms.ColumnHeader)
-$vmCol = (New-Object -TypeName System.Windows.Forms.ColumnHeader)
-$cpuCol = (New-Object -TypeName System.Windows.Forms.ColumnHeader)
-$ramCol = (New-Object -TypeName System.Windows.Forms.ColumnHeader)
-$label5 = (New-Object -TypeName System.Windows.Forms.Label)
+$roleFlowLayoutPanel = (New-Object -TypeName System.Windows.Forms.FlowLayoutPanel)
 $netPanel = (New-Object -TypeName System.Windows.Forms.Panel)
 $tableLayoutPanel2 = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
 $tableLayoutPanel3 = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
@@ -186,6 +157,28 @@ $groupTextBox = (New-Object -TypeName System.Windows.Forms.TextBox)
 $rosterListView = (New-Object -TypeName System.Windows.Forms.ListView)
 $userCol = (New-Object -TypeName System.Windows.Forms.ColumnHeader)
 $groupCol = (New-Object -TypeName System.Windows.Forms.ColumnHeader)
+$envPanel = (New-Object -TypeName System.Windows.Forms.Panel)
+$tableLayoutPanel7 = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
+$tableLayoutPanel8 = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
+$envImportTreeView = (New-Object -TypeName System.Windows.Forms.TreeView)
+$envSelectButton = (New-Object -TypeName System.Windows.Forms.Button)
+$tableLayoutPanel14 = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
+$groupBox2 = (New-Object -TypeName System.Windows.Forms.GroupBox)
+$textBox2 = (New-Object -TypeName System.Windows.Forms.TextBox)
+$tableLayoutPanel9 = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
+$envConfigGroupBox = (New-Object -TypeName System.Windows.Forms.GroupBox)
+$tableLayoutPanel10 = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
+$tableLayoutPanel11 = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
+$label2 = (New-Object -TypeName System.Windows.Forms.Label)
+$panel10 = (New-Object -TypeName System.Windows.Forms.Panel)
+$envNameTextBox = (New-Object -TypeName System.Windows.Forms.TextBox)
+$envAddButton = (New-Object -TypeName System.Windows.Forms.Button)
+$envSummaryListView = (New-Object -TypeName System.Windows.Forms.ListView)
+$nameCol = (New-Object -TypeName System.Windows.Forms.ColumnHeader)
+$vmCol = (New-Object -TypeName System.Windows.Forms.ColumnHeader)
+$label5 = (New-Object -TypeName System.Windows.Forms.Label)
+$deployPanel = (New-Object -TypeName System.Windows.Forms.Panel)
+$tableLayoutPanel20 = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
 $columnHeader1 = (New-Object -TypeName System.Windows.Forms.ColumnHeader)
 $columnHeader2 = (New-Object -TypeName System.Windows.Forms.ColumnHeader)
 $loginPanel = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
@@ -208,6 +201,9 @@ $nodeTextBox = (New-Object -TypeName System.Windows.Forms.TextBox)
 $loginButton = (New-Object -TypeName System.Windows.Forms.Button)
 $tableLayoutPanel4 = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
 $label1 = (New-Object -TypeName System.Windows.Forms.Label)
+$tableLayoutPanel19 = (New-Object -TypeName System.Windows.Forms.TableLayoutPanel)
+$roleComboBox = (New-Object -TypeName System.Windows.Forms.ComboBox)
+$label3 = (New-Object -TypeName System.Windows.Forms.Label)
 $main.SuspendLayout()
 $configurationTable.SuspendLayout()
 $sidePanel.SuspendLayout()
@@ -215,22 +211,12 @@ $buttonPanel.SuspendLayout()
 $informationPanel.SuspendLayout()
 $rolePanel.SuspendLayout()
 $tableLayoutPanel17.SuspendLayout()
-$tableLayoutPanel18.SuspendLayout()
-$groupBox6.SuspendLayout()
-$groupBox5.SuspendLayout()
-$groupBox4.SuspendLayout()
-$groupBox3.SuspendLayout()
-$envPanel.SuspendLayout()
-$tableLayoutPanel7.SuspendLayout()
-$tableLayoutPanel8.SuspendLayout()
-$tableLayoutPanel14.SuspendLayout()
-$groupBox2.SuspendLayout()
-$tableLayoutPanel9.SuspendLayout()
-$envConfigGroupBox.SuspendLayout()
-$tableLayoutPanel10.SuspendLayout()
 $tableLayoutPanel13.SuspendLayout()
-$tableLayoutPanel12.SuspendLayout()
-$tableLayoutPanel11.SuspendLayout()
+$tableLayoutPanel21.SuspendLayout()
+$tableLayoutPanel18.SuspendLayout()
+$groupBox4.SuspendLayout()
+$groupBox5.SuspendLayout()
+$groupBox3.SuspendLayout()
 $netPanel.SuspendLayout()
 $tableLayoutPanel2.SuspendLayout()
 $tableLayoutPanel3.SuspendLayout()
@@ -244,6 +230,16 @@ $tableLayoutPanel6.SuspendLayout()
 $groupBox.SuspendLayout()
 $tableLayoutPanel15.SuspendLayout()
 $panel7.SuspendLayout()
+$envPanel.SuspendLayout()
+$tableLayoutPanel7.SuspendLayout()
+$tableLayoutPanel8.SuspendLayout()
+$tableLayoutPanel14.SuspendLayout()
+$groupBox2.SuspendLayout()
+$tableLayoutPanel9.SuspendLayout()
+$envConfigGroupBox.SuspendLayout()
+$tableLayoutPanel10.SuspendLayout()
+$tableLayoutPanel11.SuspendLayout()
+$panel10.SuspendLayout()
 $loginPanel.SuspendLayout()
 $loginInfoTable.SuspendLayout()
 $usernameGroupBox.SuspendLayout()
@@ -257,6 +253,7 @@ $panel4.SuspendLayout()
 $nodeGroupBox.SuspendLayout()
 $panel5.SuspendLayout()
 $tableLayoutPanel4.SuspendLayout()
+$tableLayoutPanel19.SuspendLayout()
 $WarriorRange.SuspendLayout()
 #
 #main
@@ -264,6 +261,7 @@ $WarriorRange.SuspendLayout()
 $main.ColumnCount = [System.Int32]1
 $main.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
 $main.Controls.Add($configurationTable,[System.Int32]0,[System.Int32]1)
+$main.Controls.Add($tableLayoutPanel20,[System.Int32]0,[System.Int32]2)
 $main.Dock = [System.Windows.Forms.DockStyle]::Fill
 $main.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]0,[System.Int32]0))
 $main.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]0))
@@ -485,10 +483,10 @@ $backButton.add_Click($backButton_Click)
 #informationPanel
 #
 $informationPanel.Controls.Add($rolePanel)
-$informationPanel.Controls.Add($deployPanel)
-$informationPanel.Controls.Add($envPanel)
 $informationPanel.Controls.Add($netPanel)
 $informationPanel.Controls.Add($rosterPanel)
+$informationPanel.Controls.Add($envPanel)
+$informationPanel.Controls.Add($deployPanel)
 $informationPanel.Dock = [System.Windows.Forms.DockStyle]::Fill
 $informationPanel.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]151,[System.Int32]0))
 $informationPanel.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]0))
@@ -509,9 +507,9 @@ $rolePanel.TabIndex = [System.Int32]3
 #
 $tableLayoutPanel17.ColumnCount = [System.Int32]1
 $tableLayoutPanel17.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
+$tableLayoutPanel17.Controls.Add($tableLayoutPanel13,[System.Int32]0,[System.Int32]1)
 $tableLayoutPanel17.Controls.Add($tableLayoutPanel18,[System.Int32]0,[System.Int32]0)
 $tableLayoutPanel17.Controls.Add($groupBox3,[System.Int32]0,[System.Int32]2)
-$tableLayoutPanel17.Controls.Add($button1,[System.Int32]0,[System.Int32]1)
 $tableLayoutPanel17.Dock = [System.Windows.Forms.DockStyle]::Fill
 $tableLayoutPanel17.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]0,[System.Int32]0))
 $tableLayoutPanel17.Name = [System.String]'tableLayoutPanel17'
@@ -522,94 +520,140 @@ $tableLayoutPanel17.RowStyles.Add((New-Object -TypeName System.Windows.Forms.Row
 $tableLayoutPanel17.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]857,[System.Int32]619))
 $tableLayoutPanel17.TabIndex = [System.Int32]0
 #
+#tableLayoutPanel13
+#
+$tableLayoutPanel13.ColumnCount = [System.Int32]2
+$tableLayoutPanel13.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]50)))
+$tableLayoutPanel13.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]50)))
+$tableLayoutPanel13.Controls.Add($roleAssignButton,[System.Int32]1,[System.Int32]0)
+$tableLayoutPanel13.Controls.Add($tableLayoutPanel21,[System.Int32]0,[System.Int32]0)
+$tableLayoutPanel13.Dock = [System.Windows.Forms.DockStyle]::Fill
+$tableLayoutPanel13.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]287))
+$tableLayoutPanel13.Name = [System.String]'tableLayoutPanel13'
+$tableLayoutPanel13.RowCount = [System.Int32]1
+$tableLayoutPanel13.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
+$tableLayoutPanel13.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]44)))
+$tableLayoutPanel13.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]851,[System.Int32]44))
+$tableLayoutPanel13.TabIndex = [System.Int32]1
+#
+#roleAssignButton
+#
+$roleAssignButton.BackColor = [System.Drawing.SystemColors]::ControlLightLight
+$roleAssignButton.Dock = [System.Windows.Forms.DockStyle]::Fill
+$roleAssignButton.FlatAppearance.BorderColor = [System.Drawing.SystemColors]::ControlDark
+$roleAssignButton.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+$roleAssignButton.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Microsoft Sans Serif',[System.Single]12,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$roleAssignButton.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]475,[System.Int32]0))
+$roleAssignButton.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]50,[System.Int32]0,[System.Int32]50,[System.Int32]0))
+$roleAssignButton.Name = [System.String]'roleAssignButton'
+$roleAssignButton.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]326,[System.Int32]44))
+$roleAssignButton.TabIndex = [System.Int32]2
+$roleAssignButton.Text = [System.String]'Assign'
+$roleAssignButton.UseVisualStyleBackColor = $false
+$roleAssignButton.add_Click($roleAssignButton_Click)
+#
+#tableLayoutPanel21
+#
+$tableLayoutPanel21.ColumnCount = [System.Int32]2
+$tableLayoutPanel21.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]60)))
+$tableLayoutPanel21.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]40)))
+$tableLayoutPanel21.Controls.Add($roleSelectButton,[System.Int32]0,[System.Int32]0)
+$tableLayoutPanel21.Controls.Add($roleSelectedLabel,[System.Int32]1,[System.Int32]0)
+$tableLayoutPanel21.Dock = [System.Windows.Forms.DockStyle]::Fill
+$tableLayoutPanel21.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]0,[System.Int32]0))
+$tableLayoutPanel21.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]0))
+$tableLayoutPanel21.Name = [System.String]'tableLayoutPanel21'
+$tableLayoutPanel21.RowCount = [System.Int32]1
+$tableLayoutPanel21.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
+$tableLayoutPanel21.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]425,[System.Int32]44))
+$tableLayoutPanel21.TabIndex = [System.Int32]3
+#
+#roleSelectButton
+#
+$roleSelectButton.BackColor = [System.Drawing.SystemColors]::ControlLightLight
+$roleSelectButton.Dock = [System.Windows.Forms.DockStyle]::Fill
+$roleSelectButton.FlatAppearance.BorderColor = [System.Drawing.SystemColors]::ControlDark
+$roleSelectButton.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+$roleSelectButton.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Microsoft Sans Serif',[System.Single]12,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$roleSelectButton.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]20,[System.Int32]0))
+$roleSelectButton.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]20,[System.Int32]0,[System.Int32]10,[System.Int32]0))
+$roleSelectButton.Name = [System.String]'roleSelectButton'
+$roleSelectButton.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]225,[System.Int32]44))
+$roleSelectButton.TabIndex = [System.Int32]3
+$roleSelectButton.Text = [System.String]'Select'
+$roleSelectButton.UseVisualStyleBackColor = $false
+$roleSelectButton.add_Click($roleSelectButton_Click)
+#
+#roleSelectedLabel
+#
+$roleSelectedLabel.AutoSize = $true
+$roleSelectedLabel.Dock = [System.Windows.Forms.DockStyle]::Fill
+$roleSelectedLabel.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]258,[System.Int32]0))
+$roleSelectedLabel.Name = [System.String]'roleSelectedLabel'
+$roleSelectedLabel.Padding = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]5,[System.Int32]0,[System.Int32]0,[System.Int32]0))
+$roleSelectedLabel.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]164,[System.Int32]44))
+$roleSelectedLabel.TabIndex = [System.Int32]4
+$roleSelectedLabel.Text = [System.String]'Selected: none'
+$roleSelectedLabel.TextAlign = [System.Drawing.ContentAlignment]::MiddleLeft
+#
 #tableLayoutPanel18
 #
-$tableLayoutPanel18.ColumnCount = [System.Int32]3
-$tableLayoutPanel18.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]33.33333)))
-$tableLayoutPanel18.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]33.33333)))
-$tableLayoutPanel18.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]33.33333)))
-$tableLayoutPanel18.Controls.Add($groupBox6,[System.Int32]2,[System.Int32]0)
-$tableLayoutPanel18.Controls.Add($groupBox5,[System.Int32]1,[System.Int32]0)
+$tableLayoutPanel18.ColumnCount = [System.Int32]2
+$tableLayoutPanel18.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]50)))
+$tableLayoutPanel18.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]50)))
+$tableLayoutPanel18.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]20)))
 $tableLayoutPanel18.Controls.Add($groupBox4,[System.Int32]0,[System.Int32]0)
+$tableLayoutPanel18.Controls.Add($groupBox5,[System.Int32]1,[System.Int32]0)
 $tableLayoutPanel18.Dock = [System.Windows.Forms.DockStyle]::Fill
 $tableLayoutPanel18.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]0,[System.Int32]0))
 $tableLayoutPanel18.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]0))
 $tableLayoutPanel18.Name = [System.String]'tableLayoutPanel18'
 $tableLayoutPanel18.RowCount = [System.Int32]1
 $tableLayoutPanel18.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
+$tableLayoutPanel18.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]284)))
 $tableLayoutPanel18.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]857,[System.Int32]284))
 $tableLayoutPanel18.TabIndex = [System.Int32]0
-#
-#groupBox6
-#
-$groupBox6.Controls.Add($permNetListBox)
-$groupBox6.Dock = [System.Windows.Forms.DockStyle]::Fill
-$groupBox6.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Microsoft Sans Serif',[System.Single]9.75,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$groupBox6.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]575,[System.Int32]3))
-$groupBox6.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]5,[System.Int32]3,[System.Int32]5,[System.Int32]3))
-$groupBox6.Name = [System.String]'groupBox6'
-$groupBox6.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]277,[System.Int32]278))
-$groupBox6.TabIndex = [System.Int32]2
-$groupBox6.TabStop = $false
-$groupBox6.Text = [System.String]'Networks'
-#
-#permNetListBox
-#
-$permNetListBox.Dock = [System.Windows.Forms.DockStyle]::Fill
-$permNetListBox.FormattingEnabled = $true
-$permNetListBox.ItemHeight = [System.Int32]16
-$permNetListBox.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]18))
-$permNetListBox.Name = [System.String]'permNetListBox'
-$permNetListBox.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]271,[System.Int32]257))
-$permNetListBox.TabIndex = [System.Int32]0
-#
-#groupBox5
-#
-$groupBox5.Controls.Add($permVMListBox)
-$groupBox5.Dock = [System.Windows.Forms.DockStyle]::Fill
-$groupBox5.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Microsoft Sans Serif',[System.Single]9.75,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$groupBox5.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]290,[System.Int32]3))
-$groupBox5.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]5,[System.Int32]3,[System.Int32]5,[System.Int32]3))
-$groupBox5.Name = [System.String]'groupBox5'
-$groupBox5.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]275,[System.Int32]278))
-$groupBox5.TabIndex = [System.Int32]1
-$groupBox5.TabStop = $false
-$groupBox5.Text = [System.String]'Virtual Machines'
-#
-#permVMListBox
-#
-$permVMListBox.Dock = [System.Windows.Forms.DockStyle]::Fill
-$permVMListBox.FormattingEnabled = $true
-$permVMListBox.ItemHeight = [System.Int32]16
-$permVMListBox.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]18))
-$permVMListBox.Name = [System.String]'permVMListBox'
-$permVMListBox.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]269,[System.Int32]257))
-$permVMListBox.TabIndex = [System.Int32]0
 #
 #groupBox4
 #
 $groupBox4.Controls.Add($permGroupTreeView)
 $groupBox4.Dock = [System.Windows.Forms.DockStyle]::Fill
 $groupBox4.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Microsoft Sans Serif',[System.Single]9.75,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$groupBox4.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]5,[System.Int32]3))
-$groupBox4.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]5,[System.Int32]3,[System.Int32]5,[System.Int32]3))
+$groupBox4.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]10,[System.Int32]10))
+$groupBox4.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]10))
 $groupBox4.Name = [System.String]'groupBox4'
-$groupBox4.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]275,[System.Int32]278))
+$groupBox4.Padding = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]10))
+$groupBox4.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]408,[System.Int32]264))
 $groupBox4.TabIndex = [System.Int32]0
 $groupBox4.TabStop = $false
 $groupBox4.Text = [System.String]'Groups'
 #
 #permGroupTreeView
 #
+$permGroupTreeView.BorderStyle = [System.Windows.Forms.BorderStyle]::None
 $permGroupTreeView.Dock = [System.Windows.Forms.DockStyle]::Fill
-$permGroupTreeView.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]18))
+$permGroupTreeView.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]10,[System.Int32]25))
+$permGroupTreeView.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]0))
 $permGroupTreeView.Name = [System.String]'permGroupTreeView'
-$permGroupTreeView.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]269,[System.Int32]257))
+$permGroupTreeView.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]388,[System.Int32]229))
 $permGroupTreeView.TabIndex = [System.Int32]0
+#
+#groupBox5
+#
+$groupBox5.Controls.Add($tableLayoutPanel19)
+$groupBox5.Dock = [System.Windows.Forms.DockStyle]::Fill
+$groupBox5.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Microsoft Sans Serif',[System.Single]9.75,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$groupBox5.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]438,[System.Int32]10))
+$groupBox5.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]10))
+$groupBox5.Name = [System.String]'groupBox5'
+$groupBox5.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]409,[System.Int32]264))
+$groupBox5.TabIndex = [System.Int32]1
+$groupBox5.TabStop = $false
+$groupBox5.Text = [System.String]'Role'
 #
 #groupBox3
 #
-$groupBox3.Controls.Add($panel8)
+$groupBox3.Controls.Add($roleFlowLayoutPanel)
 $groupBox3.Dock = [System.Windows.Forms.DockStyle]::Fill
 $groupBox3.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
 $groupBox3.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Microsoft Sans Serif',[System.Single]12,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
@@ -621,382 +665,15 @@ $groupBox3.TabStop = $false
 $groupBox3.Text = [System.String]'Role Assignments'
 $groupBox3.add_Enter($groupBox3_Enter)
 #
-#panel8
+#roleFlowLayoutPanel
 #
-$panel8.Dock = [System.Windows.Forms.DockStyle]::Fill
-$panel8.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]22))
-$panel8.Name = [System.String]'panel8'
-$panel8.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]845,[System.Int32]254))
-$panel8.TabIndex = [System.Int32]0
-#
-#button1
-#
-$button1.BackColor = [System.Drawing.SystemColors]::ControlLightLight
-$button1.Dock = [System.Windows.Forms.DockStyle]::Fill
-$button1.FlatAppearance.BorderColor = [System.Drawing.SystemColors]::ControlDark
-$button1.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-$button1.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Microsoft Sans Serif',[System.Single]12,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$button1.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]300,[System.Int32]287))
-$button1.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]300,[System.Int32]3,[System.Int32]300,[System.Int32]3))
-$button1.Name = [System.String]'button1'
-$button1.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]257,[System.Int32]44))
-$button1.TabIndex = [System.Int32]2
-$button1.Text = [System.String]'Assign'
-$button1.UseVisualStyleBackColor = $false
-#
-#deployPanel
-#
-$deployPanel.Dock = [System.Windows.Forms.DockStyle]::Fill
-$deployPanel.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]0,[System.Int32]0))
-$deployPanel.Name = [System.String]'deployPanel'
-$deployPanel.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]857,[System.Int32]619))
-$deployPanel.TabIndex = [System.Int32]5
-#
-#envPanel
-#
-$envPanel.Controls.Add($tableLayoutPanel7)
-$envPanel.Controls.Add($label5)
-$envPanel.Dock = [System.Windows.Forms.DockStyle]::Fill
-$envPanel.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]0,[System.Int32]0))
-$envPanel.Name = [System.String]'envPanel'
-$envPanel.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]857,[System.Int32]619))
-$envPanel.TabIndex = [System.Int32]0
-#
-#tableLayoutPanel7
-#
-$tableLayoutPanel7.ColumnCount = [System.Int32]2
-$tableLayoutPanel7.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]39.43991)))
-$tableLayoutPanel7.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]60.56009)))
-$tableLayoutPanel7.Controls.Add($tableLayoutPanel8,[System.Int32]0,[System.Int32]0)
-$tableLayoutPanel7.Controls.Add($tableLayoutPanel9,[System.Int32]1,[System.Int32]0)
-$tableLayoutPanel7.Dock = [System.Windows.Forms.DockStyle]::Fill
-$tableLayoutPanel7.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]0,[System.Int32]0))
-$tableLayoutPanel7.Name = [System.String]'tableLayoutPanel7'
-$tableLayoutPanel7.RowCount = [System.Int32]1
-$tableLayoutPanel7.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
-$tableLayoutPanel7.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]619)))
-$tableLayoutPanel7.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]857,[System.Int32]619))
-$tableLayoutPanel7.TabIndex = [System.Int32]5
-#
-#tableLayoutPanel8
-#
-$tableLayoutPanel8.ColumnCount = [System.Int32]1
-$tableLayoutPanel8.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
-$tableLayoutPanel8.Controls.Add($envImportTreeView,[System.Int32]0,[System.Int32]1)
-$tableLayoutPanel8.Controls.Add($envSelectButton,[System.Int32]0,[System.Int32]2)
-$tableLayoutPanel8.Controls.Add($tableLayoutPanel14,[System.Int32]0,[System.Int32]0)
-$tableLayoutPanel8.Dock = [System.Windows.Forms.DockStyle]::Fill
-$tableLayoutPanel8.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]3))
-$tableLayoutPanel8.Name = [System.String]'tableLayoutPanel8'
-$tableLayoutPanel8.RowCount = [System.Int32]3
-$tableLayoutPanel8.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]125)))
-$tableLayoutPanel8.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
-$tableLayoutPanel8.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]125)))
-$tableLayoutPanel8.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]332,[System.Int32]613))
-$tableLayoutPanel8.TabIndex = [System.Int32]2
-#
-#envImportTreeView
-#
-$envImportTreeView.BorderStyle = [System.Windows.Forms.BorderStyle]::None
-$envImportTreeView.Dock = [System.Windows.Forms.DockStyle]::Fill
-$envImportTreeView.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]30,[System.Int32]128))
-$envImportTreeView.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]30,[System.Int32]3,[System.Int32]30,[System.Int32]3))
-$envImportTreeView.Name = [System.String]'envImportTreeView'
-$envImportTreeView.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]272,[System.Int32]357))
-$envImportTreeView.TabIndex = [System.Int32]5
-#
-#envSelectButton
-#
-$envSelectButton.BackColor = [System.Drawing.SystemColors]::ControlLight
-$envSelectButton.Dock = [System.Windows.Forms.DockStyle]::Fill
-$envSelectButton.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-$envSelectButton.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Nirmala UI',[System.Single]9.75,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$envSelectButton.ForeColor = [System.Drawing.SystemColors]::ControlDarkDark
-$envSelectButton.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]30,[System.Int32]498))
-$envSelectButton.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]30,[System.Int32]10,[System.Int32]30,[System.Int32]75))
-$envSelectButton.Name = [System.String]'envSelectButton'
-$envSelectButton.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]272,[System.Int32]40))
-$envSelectButton.TabIndex = [System.Int32]6
-$envSelectButton.Text = [System.String]'Select'
-$envSelectButton.UseVisualStyleBackColor = $false
-$envSelectButton.add_Click($envSelectButton_Click)
-#
-#tableLayoutPanel14
-#
-$tableLayoutPanel14.ColumnCount = [System.Int32]1
-$tableLayoutPanel14.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
-$tableLayoutPanel14.Controls.Add($groupBox2,[System.Int32]0,[System.Int32]0)
-$tableLayoutPanel14.Dock = [System.Windows.Forms.DockStyle]::Fill
-$tableLayoutPanel14.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]3))
-$tableLayoutPanel14.Name = [System.String]'tableLayoutPanel14'
-$tableLayoutPanel14.RowCount = [System.Int32]1
-$tableLayoutPanel14.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
-$tableLayoutPanel14.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]119)))
-$tableLayoutPanel14.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]326,[System.Int32]119))
-$tableLayoutPanel14.TabIndex = [System.Int32]7
-#
-#groupBox2
-#
-$groupBox2.Anchor = ([System.Windows.Forms.AnchorStyles][System.Windows.Forms.AnchorStyles]::Bottom -bor [System.Windows.Forms.AnchorStyles]::Left -bor [System.Windows.Forms.AnchorStyles]::Right)
-$groupBox2.Controls.Add($textBox2)
-$groupBox2.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-$groupBox2.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Microsoft Sans Serif',[System.Single]9.75,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$groupBox2.ForeColor = [System.Drawing.SystemColors]::ControlText
-$groupBox2.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]30,[System.Int32]68))
-$groupBox2.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]30,[System.Int32]3,[System.Int32]30,[System.Int32]3))
-$groupBox2.Name = [System.String]'groupBox2'
-$groupBox2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]266,[System.Int32]48))
-$groupBox2.TabIndex = [System.Int32]3
-$groupBox2.TabStop = $false
-$groupBox2.Text = [System.String]'Filter'
-#
-#textBox2
-#
-$textBox2.BorderStyle = [System.Windows.Forms.BorderStyle]::None
-$textBox2.Dock = [System.Windows.Forms.DockStyle]::Fill
-$textBox2.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Nirmala Text',[System.Single]9.75,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$textBox2.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]18))
-$textBox2.Name = [System.String]'textBox2'
-$textBox2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]260,[System.Int32]25))
-$textBox2.TabIndex = [System.Int32]0
-#
-#tableLayoutPanel9
-#
-$tableLayoutPanel9.ColumnCount = [System.Int32]1
-$tableLayoutPanel9.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
-$tableLayoutPanel9.Controls.Add($envConfigGroupBox,[System.Int32]0,[System.Int32]0)
-$tableLayoutPanel9.Controls.Add($envAddButton,[System.Int32]0,[System.Int32]1)
-$tableLayoutPanel9.Controls.Add($envSummaryListView,[System.Int32]0,[System.Int32]2)
-$tableLayoutPanel9.Dock = [System.Windows.Forms.DockStyle]::Fill
-$tableLayoutPanel9.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]341,[System.Int32]3))
-$tableLayoutPanel9.Name = [System.String]'tableLayoutPanel9'
-$tableLayoutPanel9.RowCount = [System.Int32]3
-$tableLayoutPanel9.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]40)))
-$tableLayoutPanel9.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]50)))
-$tableLayoutPanel9.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]60)))
-$tableLayoutPanel9.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]513,[System.Int32]613))
-$tableLayoutPanel9.TabIndex = [System.Int32]3
-#
-#envConfigGroupBox
-#
-$envConfigGroupBox.BackColor = [System.Drawing.SystemColors]::Control
-$envConfigGroupBox.Controls.Add($tableLayoutPanel10)
-$envConfigGroupBox.Dock = [System.Windows.Forms.DockStyle]::Fill
-$envConfigGroupBox.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Consolas',[System.Single]15.75,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$envConfigGroupBox.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]15,[System.Int32]15))
-$envConfigGroupBox.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]15))
-$envConfigGroupBox.Name = [System.String]'envConfigGroupBox'
-$envConfigGroupBox.Padding = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]3,[System.Int32]30,[System.Int32]3,[System.Int32]3))
-$envConfigGroupBox.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]483,[System.Int32]195))
-$envConfigGroupBox.TabIndex = [System.Int32]0
-$envConfigGroupBox.TabStop = $false
-$envConfigGroupBox.Text = [System.String]'{...}'
-#
-#tableLayoutPanel10
-#
-$tableLayoutPanel10.ColumnCount = [System.Int32]3
-$tableLayoutPanel10.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]40)))
-$tableLayoutPanel10.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]30)))
-$tableLayoutPanel10.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]30)))
-$tableLayoutPanel10.Controls.Add($tableLayoutPanel13,[System.Int32]2,[System.Int32]0)
-$tableLayoutPanel10.Controls.Add($tableLayoutPanel12,[System.Int32]1,[System.Int32]0)
-$tableLayoutPanel10.Controls.Add($tableLayoutPanel11,[System.Int32]0,[System.Int32]0)
-$tableLayoutPanel10.Dock = [System.Windows.Forms.DockStyle]::Fill
-$tableLayoutPanel10.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]55))
-$tableLayoutPanel10.Name = [System.String]'tableLayoutPanel10'
-$tableLayoutPanel10.RowCount = [System.Int32]1
-$tableLayoutPanel10.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
-$tableLayoutPanel10.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]477,[System.Int32]137))
-$tableLayoutPanel10.TabIndex = [System.Int32]0
-#
-#tableLayoutPanel13
-#
-$tableLayoutPanel13.ColumnCount = [System.Int32]1
-$tableLayoutPanel13.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
-$tableLayoutPanel13.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]20)))
-$tableLayoutPanel13.Controls.Add($envMemDropDown,[System.Int32]0,[System.Int32]1)
-$tableLayoutPanel13.Controls.Add($label4,[System.Int32]0,[System.Int32]0)
-$tableLayoutPanel13.Dock = [System.Windows.Forms.DockStyle]::Fill
-$tableLayoutPanel13.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]336,[System.Int32]3))
-$tableLayoutPanel13.Name = [System.String]'tableLayoutPanel13'
-$tableLayoutPanel13.RowCount = [System.Int32]2
-$tableLayoutPanel13.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]30)))
-$tableLayoutPanel13.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
-$tableLayoutPanel13.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]138,[System.Int32]131))
-$tableLayoutPanel13.TabIndex = [System.Int32]2
-#
-#envMemDropDown
-#
-$envMemDropDown.Dock = [System.Windows.Forms.DockStyle]::Fill
-$envMemDropDown.DropDownHeight = [System.Int32]50
-$envMemDropDown.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-$envMemDropDown.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Consolas',[System.Single]12,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$envMemDropDown.FormattingEnabled = $true
-$envMemDropDown.IntegralHeight = $false
-$envMemDropDown.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]10,[System.Int32]60))
-$envMemDropDown.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]10,[System.Int32]30,[System.Int32]10,[System.Int32]3))
-$envMemDropDown.MaxDropDownItems = [System.Int32]100
-$envMemDropDown.Name = [System.String]'envMemDropDown'
-$envMemDropDown.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]118,[System.Int32]27))
-$envMemDropDown.Sorted = $true
-$envMemDropDown.TabIndex = [System.Int32]2
-#
-#label4
-#
-$label4.AutoSize = $true
-$label4.Dock = [System.Windows.Forms.DockStyle]::Fill
-$label4.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Consolas',[System.Single]12,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$label4.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]0))
-$label4.Name = [System.String]'label4'
-$label4.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]132,[System.Int32]30))
-$label4.TabIndex = [System.Int32]0
-$label4.Text = [System.String]'Memory (MB)'
-$label4.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
-#
-#tableLayoutPanel12
-#
-$tableLayoutPanel12.ColumnCount = [System.Int32]1
-$tableLayoutPanel12.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
-$tableLayoutPanel12.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]20)))
-$tableLayoutPanel12.Controls.Add($label3,[System.Int32]0,[System.Int32]0)
-$tableLayoutPanel12.Controls.Add($envProcDropDown,[System.Int32]0,[System.Int32]1)
-$tableLayoutPanel12.Dock = [System.Windows.Forms.DockStyle]::Fill
-$tableLayoutPanel12.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]193,[System.Int32]3))
-$tableLayoutPanel12.Name = [System.String]'tableLayoutPanel12'
-$tableLayoutPanel12.RowCount = [System.Int32]2
-$tableLayoutPanel12.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]30)))
-$tableLayoutPanel12.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
-$tableLayoutPanel12.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]137,[System.Int32]131))
-$tableLayoutPanel12.TabIndex = [System.Int32]1
-#
-#label3
-#
-$label3.AutoSize = $true
-$label3.Dock = [System.Windows.Forms.DockStyle]::Fill
-$label3.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Consolas',[System.Single]12,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$label3.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]0))
-$label3.Name = [System.String]'label3'
-$label3.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]131,[System.Int32]30))
-$label3.TabIndex = [System.Int32]0
-$label3.Text = [System.String]'Processor'
-$label3.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
-#
-#envProcDropDown
-#
-$envProcDropDown.Dock = [System.Windows.Forms.DockStyle]::Fill
-$envProcDropDown.DropDownHeight = [System.Int32]50
-$envProcDropDown.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-$envProcDropDown.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Consolas',[System.Single]12,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$envProcDropDown.FormattingEnabled = $true
-$envProcDropDown.IntegralHeight = $false
-$envProcDropDown.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]10,[System.Int32]60))
-$envProcDropDown.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]10,[System.Int32]30,[System.Int32]10,[System.Int32]3))
-$envProcDropDown.MaxDropDownItems = [System.Int32]100
-$envProcDropDown.Name = [System.String]'envProcDropDown'
-$envProcDropDown.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]117,[System.Int32]27))
-$envProcDropDown.Sorted = $true
-$envProcDropDown.TabIndex = [System.Int32]1
-#
-#tableLayoutPanel11
-#
-$tableLayoutPanel11.ColumnCount = [System.Int32]1
-$tableLayoutPanel11.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
-$tableLayoutPanel11.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]20)))
-$tableLayoutPanel11.Controls.Add($label2,[System.Int32]0,[System.Int32]0)
-$tableLayoutPanel11.Controls.Add($envNameTextBox,[System.Int32]0,[System.Int32]1)
-$tableLayoutPanel11.Dock = [System.Windows.Forms.DockStyle]::Fill
-$tableLayoutPanel11.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]3))
-$tableLayoutPanel11.Name = [System.String]'tableLayoutPanel11'
-$tableLayoutPanel11.RowCount = [System.Int32]2
-$tableLayoutPanel11.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]30)))
-$tableLayoutPanel11.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
-$tableLayoutPanel11.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]184,[System.Int32]131))
-$tableLayoutPanel11.TabIndex = [System.Int32]0
-#
-#label2
-#
-$label2.AutoSize = $true
-$label2.Dock = [System.Windows.Forms.DockStyle]::Fill
-$label2.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Consolas',[System.Single]12,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$label2.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]0))
-$label2.Name = [System.String]'label2'
-$label2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]178,[System.Int32]30))
-$label2.TabIndex = [System.Int32]0
-$label2.Text = [System.String]'Name'
-$label2.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
-#
-#envNameTextBox
-#
-$envNameTextBox.BorderStyle = [System.Windows.Forms.BorderStyle]::None
-$envNameTextBox.Dock = [System.Windows.Forms.DockStyle]::Fill
-$envNameTextBox.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Consolas',[System.Single]12,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$envNameTextBox.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]10,[System.Int32]66))
-$envNameTextBox.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]10,[System.Int32]36,[System.Int32]10,[System.Int32]3))
-$envNameTextBox.Name = [System.String]'envNameTextBox'
-$envNameTextBox.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]164,[System.Int32]19))
-$envNameTextBox.TabIndex = [System.Int32]1
-#
-#envAddButton
-#
-$envAddButton.BackColor = [System.Drawing.SystemColors]::ControlLight
-$envAddButton.Dock = [System.Windows.Forms.DockStyle]::Fill
-$envAddButton.FlatAppearance.BorderColor = [System.Drawing.SystemColors]::ControlDarkDark
-$envAddButton.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
-$envAddButton.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Nirmala UI',[System.Single]14.25,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$envAddButton.ForeColor = [System.Drawing.SystemColors]::ControlDarkDark
-$envAddButton.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]100,[System.Int32]228))
-$envAddButton.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]100,[System.Int32]3,[System.Int32]100,[System.Int32]3))
-$envAddButton.Name = [System.String]'envAddButton'
-$envAddButton.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]313,[System.Int32]44))
-$envAddButton.TabIndex = [System.Int32]1
-$envAddButton.Text = [System.String]'Add'
-$envAddButton.UseVisualStyleBackColor = $false
-$envAddButton.add_Click($envAddButton_Click)
-#
-#envSummaryListView
-#
-$envSummaryListView.BorderStyle = [System.Windows.Forms.BorderStyle]::FixedSingle
-$envSummaryListView.Columns.AddRange([System.Windows.Forms.ColumnHeader[]]@($nameCol,$vmCol,$cpuCol,$ramCol))
-$envSummaryListView.Dock = [System.Windows.Forms.DockStyle]::Fill
-$envSummaryListView.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Microsoft Sans Serif',[System.Single]9.75,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-$envSummaryListView.HideSelection = $false
-$envSummaryListView.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]15,[System.Int32]290))
-$envSummaryListView.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]15,[System.Int32]15,[System.Int32]15,[System.Int32]30))
-$envSummaryListView.Name = [System.String]'envSummaryListView'
-$envSummaryListView.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]483,[System.Int32]293))
-$envSummaryListView.TabIndex = [System.Int32]2
-$envSummaryListView.UseCompatibleStateImageBehavior = $false
-$envSummaryListView.View = [System.Windows.Forms.View]::Details
-#
-#nameCol
-#
-$nameCol.Text = [System.String]'Name'
-$nameCol.Width = [System.Int32]150
-#
-#vmCol
-#
-$vmCol.Text = [System.String]'Base VM'
-$vmCol.Width = [System.Int32]150
-#
-#cpuCol
-#
-$cpuCol.Text = [System.String]'CPUs'
-$cpuCol.Width = [System.Int32]75
-#
-#ramCol
-#
-$ramCol.Text = [System.String]'RAM'
-$ramCol.Width = [System.Int32]75
-#
-#label5
-#
-$label5.AutoSize = $true
-$label5.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]738))
-$label5.Name = [System.String]'label5'
-$label5.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]25,[System.Int32]13))
-$label5.TabIndex = [System.Int32]4
-$label5.Text = [System.String]'env'
-$label5.add_Click($label5_Click)
+$roleFlowLayoutPanel.AutoScroll = $true
+$roleFlowLayoutPanel.Dock = [System.Windows.Forms.DockStyle]::Fill
+$roleFlowLayoutPanel.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]22))
+$roleFlowLayoutPanel.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]0))
+$roleFlowLayoutPanel.Name = [System.String]'roleFlowLayoutPanel'
+$roleFlowLayoutPanel.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]845,[System.Int32]254))
+$roleFlowLayoutPanel.TabIndex = [System.Int32]0
 #
 #netPanel
 #
@@ -1348,6 +1025,287 @@ $userCol.Width = [System.Int32]150
 $groupCol.Text = [System.String]'Group'
 $groupCol.Width = [System.Int32]200
 #
+#envPanel
+#
+$envPanel.Controls.Add($tableLayoutPanel7)
+$envPanel.Controls.Add($label5)
+$envPanel.Dock = [System.Windows.Forms.DockStyle]::Fill
+$envPanel.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]0,[System.Int32]0))
+$envPanel.Name = [System.String]'envPanel'
+$envPanel.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]857,[System.Int32]619))
+$envPanel.TabIndex = [System.Int32]0
+#
+#tableLayoutPanel7
+#
+$tableLayoutPanel7.ColumnCount = [System.Int32]2
+$tableLayoutPanel7.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]39.43991)))
+$tableLayoutPanel7.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]60.56009)))
+$tableLayoutPanel7.Controls.Add($tableLayoutPanel8,[System.Int32]0,[System.Int32]0)
+$tableLayoutPanel7.Controls.Add($tableLayoutPanel9,[System.Int32]1,[System.Int32]0)
+$tableLayoutPanel7.Dock = [System.Windows.Forms.DockStyle]::Fill
+$tableLayoutPanel7.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]0,[System.Int32]0))
+$tableLayoutPanel7.Name = [System.String]'tableLayoutPanel7'
+$tableLayoutPanel7.RowCount = [System.Int32]1
+$tableLayoutPanel7.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
+$tableLayoutPanel7.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]619)))
+$tableLayoutPanel7.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]857,[System.Int32]619))
+$tableLayoutPanel7.TabIndex = [System.Int32]5
+#
+#tableLayoutPanel8
+#
+$tableLayoutPanel8.ColumnCount = [System.Int32]1
+$tableLayoutPanel8.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
+$tableLayoutPanel8.Controls.Add($envImportTreeView,[System.Int32]0,[System.Int32]1)
+$tableLayoutPanel8.Controls.Add($envSelectButton,[System.Int32]0,[System.Int32]2)
+$tableLayoutPanel8.Controls.Add($tableLayoutPanel14,[System.Int32]0,[System.Int32]0)
+$tableLayoutPanel8.Dock = [System.Windows.Forms.DockStyle]::Fill
+$tableLayoutPanel8.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]3))
+$tableLayoutPanel8.Name = [System.String]'tableLayoutPanel8'
+$tableLayoutPanel8.RowCount = [System.Int32]3
+$tableLayoutPanel8.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]125)))
+$tableLayoutPanel8.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
+$tableLayoutPanel8.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]125)))
+$tableLayoutPanel8.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]332,[System.Int32]613))
+$tableLayoutPanel8.TabIndex = [System.Int32]2
+#
+#envImportTreeView
+#
+$envImportTreeView.BorderStyle = [System.Windows.Forms.BorderStyle]::None
+$envImportTreeView.Dock = [System.Windows.Forms.DockStyle]::Fill
+$envImportTreeView.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]30,[System.Int32]128))
+$envImportTreeView.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]30,[System.Int32]3,[System.Int32]30,[System.Int32]3))
+$envImportTreeView.Name = [System.String]'envImportTreeView'
+$envImportTreeView.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]272,[System.Int32]357))
+$envImportTreeView.TabIndex = [System.Int32]5
+#
+#envSelectButton
+#
+$envSelectButton.BackColor = [System.Drawing.SystemColors]::ControlLight
+$envSelectButton.Dock = [System.Windows.Forms.DockStyle]::Fill
+$envSelectButton.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+$envSelectButton.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Nirmala UI',[System.Single]9.75,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$envSelectButton.ForeColor = [System.Drawing.SystemColors]::ControlDarkDark
+$envSelectButton.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]30,[System.Int32]498))
+$envSelectButton.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]30,[System.Int32]10,[System.Int32]30,[System.Int32]75))
+$envSelectButton.Name = [System.String]'envSelectButton'
+$envSelectButton.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]272,[System.Int32]40))
+$envSelectButton.TabIndex = [System.Int32]6
+$envSelectButton.Text = [System.String]'Select'
+$envSelectButton.UseVisualStyleBackColor = $false
+$envSelectButton.add_Click($envSelectButton_Click)
+#
+#tableLayoutPanel14
+#
+$tableLayoutPanel14.ColumnCount = [System.Int32]1
+$tableLayoutPanel14.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
+$tableLayoutPanel14.Controls.Add($groupBox2,[System.Int32]0,[System.Int32]0)
+$tableLayoutPanel14.Dock = [System.Windows.Forms.DockStyle]::Fill
+$tableLayoutPanel14.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]3))
+$tableLayoutPanel14.Name = [System.String]'tableLayoutPanel14'
+$tableLayoutPanel14.RowCount = [System.Int32]1
+$tableLayoutPanel14.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
+$tableLayoutPanel14.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]119)))
+$tableLayoutPanel14.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]326,[System.Int32]119))
+$tableLayoutPanel14.TabIndex = [System.Int32]7
+#
+#groupBox2
+#
+$groupBox2.Anchor = ([System.Windows.Forms.AnchorStyles][System.Windows.Forms.AnchorStyles]::Bottom -bor [System.Windows.Forms.AnchorStyles]::Left -bor [System.Windows.Forms.AnchorStyles]::Right)
+$groupBox2.Controls.Add($textBox2)
+$groupBox2.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+$groupBox2.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Microsoft Sans Serif',[System.Single]9.75,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$groupBox2.ForeColor = [System.Drawing.SystemColors]::ControlText
+$groupBox2.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]30,[System.Int32]68))
+$groupBox2.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]30,[System.Int32]3,[System.Int32]30,[System.Int32]3))
+$groupBox2.Name = [System.String]'groupBox2'
+$groupBox2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]266,[System.Int32]48))
+$groupBox2.TabIndex = [System.Int32]3
+$groupBox2.TabStop = $false
+$groupBox2.Text = [System.String]'Filter'
+#
+#textBox2
+#
+$textBox2.BorderStyle = [System.Windows.Forms.BorderStyle]::None
+$textBox2.Dock = [System.Windows.Forms.DockStyle]::Fill
+$textBox2.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Nirmala Text',[System.Single]9.75,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$textBox2.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]18))
+$textBox2.Name = [System.String]'textBox2'
+$textBox2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]260,[System.Int32]25))
+$textBox2.TabIndex = [System.Int32]0
+#
+#tableLayoutPanel9
+#
+$tableLayoutPanel9.ColumnCount = [System.Int32]1
+$tableLayoutPanel9.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
+$tableLayoutPanel9.Controls.Add($envConfigGroupBox,[System.Int32]0,[System.Int32]0)
+$tableLayoutPanel9.Controls.Add($envAddButton,[System.Int32]0,[System.Int32]1)
+$tableLayoutPanel9.Controls.Add($envSummaryListView,[System.Int32]0,[System.Int32]2)
+$tableLayoutPanel9.Dock = [System.Windows.Forms.DockStyle]::Fill
+$tableLayoutPanel9.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]341,[System.Int32]3))
+$tableLayoutPanel9.Name = [System.String]'tableLayoutPanel9'
+$tableLayoutPanel9.RowCount = [System.Int32]3
+$tableLayoutPanel9.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]40)))
+$tableLayoutPanel9.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]50)))
+$tableLayoutPanel9.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]60)))
+$tableLayoutPanel9.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]513,[System.Int32]613))
+$tableLayoutPanel9.TabIndex = [System.Int32]3
+#
+#envConfigGroupBox
+#
+$envConfigGroupBox.BackColor = [System.Drawing.SystemColors]::Control
+$envConfigGroupBox.Controls.Add($tableLayoutPanel10)
+$envConfigGroupBox.Dock = [System.Windows.Forms.DockStyle]::Fill
+$envConfigGroupBox.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Consolas',[System.Single]15.75,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$envConfigGroupBox.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]15,[System.Int32]15))
+$envConfigGroupBox.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]15))
+$envConfigGroupBox.Name = [System.String]'envConfigGroupBox'
+$envConfigGroupBox.Padding = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]3,[System.Int32]30,[System.Int32]3,[System.Int32]3))
+$envConfigGroupBox.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]483,[System.Int32]195))
+$envConfigGroupBox.TabIndex = [System.Int32]0
+$envConfigGroupBox.TabStop = $false
+$envConfigGroupBox.Text = [System.String]'{...}'
+#
+#tableLayoutPanel10
+#
+$tableLayoutPanel10.ColumnCount = [System.Int32]1
+$tableLayoutPanel10.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
+$tableLayoutPanel10.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]20)))
+$tableLayoutPanel10.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]20)))
+$tableLayoutPanel10.Controls.Add($tableLayoutPanel11,[System.Int32]0,[System.Int32]0)
+$tableLayoutPanel10.Dock = [System.Windows.Forms.DockStyle]::Fill
+$tableLayoutPanel10.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]55))
+$tableLayoutPanel10.Name = [System.String]'tableLayoutPanel10'
+$tableLayoutPanel10.RowCount = [System.Int32]1
+$tableLayoutPanel10.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
+$tableLayoutPanel10.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]477,[System.Int32]137))
+$tableLayoutPanel10.TabIndex = [System.Int32]0
+#
+#tableLayoutPanel11
+#
+$tableLayoutPanel11.ColumnCount = [System.Int32]1
+$tableLayoutPanel11.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
+$tableLayoutPanel11.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]20)))
+$tableLayoutPanel11.Controls.Add($label2,[System.Int32]0,[System.Int32]0)
+$tableLayoutPanel11.Controls.Add($panel10,[System.Int32]0,[System.Int32]1)
+$tableLayoutPanel11.Dock = [System.Windows.Forms.DockStyle]::Fill
+$tableLayoutPanel11.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]3))
+$tableLayoutPanel11.Name = [System.String]'tableLayoutPanel11'
+$tableLayoutPanel11.RowCount = [System.Int32]2
+$tableLayoutPanel11.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]30)))
+$tableLayoutPanel11.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
+$tableLayoutPanel11.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]471,[System.Int32]131))
+$tableLayoutPanel11.TabIndex = [System.Int32]0
+#
+#label2
+#
+$label2.AutoSize = $true
+$label2.Dock = [System.Windows.Forms.DockStyle]::Fill
+$label2.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Consolas',[System.Single]12,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$label2.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]0))
+$label2.Name = [System.String]'label2'
+$label2.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]465,[System.Int32]30))
+$label2.TabIndex = [System.Int32]0
+$label2.Text = [System.String]'Name this virtual machine'
+$label2.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
+#
+#panel10
+#
+$panel10.BackColor = [System.Drawing.SystemColors]::Window
+$panel10.Controls.Add($envNameTextBox)
+$panel10.Dock = [System.Windows.Forms.DockStyle]::Fill
+$panel10.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]100,[System.Int32]55))
+$panel10.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]100,[System.Int32]25,[System.Int32]100,[System.Int32]25))
+$panel10.Name = [System.String]'panel10'
+$panel10.Padding = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]15))
+$panel10.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]271,[System.Int32]51))
+$panel10.TabIndex = [System.Int32]1
+#
+#envNameTextBox
+#
+$envNameTextBox.BorderStyle = [System.Windows.Forms.BorderStyle]::None
+$envNameTextBox.Dock = [System.Windows.Forms.DockStyle]::Fill
+$envNameTextBox.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Microsoft Sans Serif',[System.Single]12,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$envNameTextBox.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]15,[System.Int32]15))
+$envNameTextBox.Name = [System.String]'envNameTextBox'
+$envNameTextBox.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]241,[System.Int32]19))
+$envNameTextBox.TabIndex = [System.Int32]0
+#
+#envAddButton
+#
+$envAddButton.BackColor = [System.Drawing.SystemColors]::ControlLight
+$envAddButton.Dock = [System.Windows.Forms.DockStyle]::Fill
+$envAddButton.FlatAppearance.BorderColor = [System.Drawing.SystemColors]::ControlDarkDark
+$envAddButton.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+$envAddButton.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Nirmala UI',[System.Single]14.25,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$envAddButton.ForeColor = [System.Drawing.SystemColors]::ControlDarkDark
+$envAddButton.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]100,[System.Int32]228))
+$envAddButton.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]100,[System.Int32]3,[System.Int32]100,[System.Int32]3))
+$envAddButton.Name = [System.String]'envAddButton'
+$envAddButton.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]313,[System.Int32]44))
+$envAddButton.TabIndex = [System.Int32]1
+$envAddButton.Text = [System.String]'Add'
+$envAddButton.UseVisualStyleBackColor = $false
+$envAddButton.add_Click($envAddButton_Click)
+#
+#envSummaryListView
+#
+$envSummaryListView.BorderStyle = [System.Windows.Forms.BorderStyle]::FixedSingle
+$envSummaryListView.Columns.AddRange([System.Windows.Forms.ColumnHeader[]]@($nameCol,$vmCol))
+$envSummaryListView.Dock = [System.Windows.Forms.DockStyle]::Fill
+$envSummaryListView.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Microsoft Sans Serif',[System.Single]9.75,[System.Drawing.FontStyle]::Regular,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
+$envSummaryListView.HideSelection = $false
+$envSummaryListView.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]15,[System.Int32]290))
+$envSummaryListView.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]15,[System.Int32]15,[System.Int32]15,[System.Int32]30))
+$envSummaryListView.Name = [System.String]'envSummaryListView'
+$envSummaryListView.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]483,[System.Int32]293))
+$envSummaryListView.TabIndex = [System.Int32]2
+$envSummaryListView.UseCompatibleStateImageBehavior = $false
+$envSummaryListView.View = [System.Windows.Forms.View]::Details
+$envSummaryListView.add_SelectedIndexChanged($envSummaryListView_SelectedIndexChanged)
+#
+#nameCol
+#
+$nameCol.Text = [System.String]'Name'
+$nameCol.Width = [System.Int32]200
+#
+#vmCol
+#
+$vmCol.Text = [System.String]'Base VM'
+$vmCol.Width = [System.Int32]250
+#
+#label5
+#
+$label5.AutoSize = $true
+$label5.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]738))
+$label5.Name = [System.String]'label5'
+$label5.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]25,[System.Int32]13))
+$label5.TabIndex = [System.Int32]4
+$label5.Text = [System.String]'env'
+$label5.add_Click($label5_Click)
+#
+#deployPanel
+#
+$deployPanel.Dock = [System.Windows.Forms.DockStyle]::Fill
+$deployPanel.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]0,[System.Int32]0))
+$deployPanel.Name = [System.String]'deployPanel'
+$deployPanel.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]857,[System.Int32]619))
+$deployPanel.TabIndex = [System.Int32]5
+#
+#tableLayoutPanel20
+#
+$tableLayoutPanel20.ColumnCount = [System.Int32]2
+$tableLayoutPanel20.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]50)))
+$tableLayoutPanel20.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]50)))
+$tableLayoutPanel20.Dock = [System.Windows.Forms.DockStyle]::Fill
+$tableLayoutPanel20.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]0,[System.Int32]709))
+$tableLayoutPanel20.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]0))
+$tableLayoutPanel20.Name = [System.String]'tableLayoutPanel20'
+$tableLayoutPanel20.RowCount = [System.Int32]1
+$tableLayoutPanel20.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
+$tableLayoutPanel20.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Absolute,[System.Single]20)))
+$tableLayoutPanel20.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]1008,[System.Int32]20))
+$tableLayoutPanel20.TabIndex = [System.Int32]3
+#
 #loginPanel
 #
 $loginPanel.ColumnCount = [System.Int32]2
@@ -1615,6 +1573,44 @@ $label1.TabIndex = [System.Int32]0
 $label1.Text = [System.String]'Welcome!'
 $label1.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
 #
+#tableLayoutPanel19
+#
+$tableLayoutPanel19.ColumnCount = [System.Int32]1
+$tableLayoutPanel19.ColumnStyles.Add((New-Object -TypeName System.Windows.Forms.ColumnStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]100)))
+$tableLayoutPanel19.Controls.Add($roleComboBox,[System.Int32]0,[System.Int32]1)
+$tableLayoutPanel19.Controls.Add($label3,[System.Int32]0,[System.Int32]0)
+$tableLayoutPanel19.Dock = [System.Windows.Forms.DockStyle]::Fill
+$tableLayoutPanel19.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]18))
+$tableLayoutPanel19.Name = [System.String]'tableLayoutPanel19'
+$tableLayoutPanel19.RowCount = [System.Int32]2
+$tableLayoutPanel19.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]44.44444)))
+$tableLayoutPanel19.RowStyles.Add((New-Object -TypeName System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent,[System.Single]55.55556)))
+$tableLayoutPanel19.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]403,[System.Int32]243))
+$tableLayoutPanel19.TabIndex = [System.Int32]0
+#
+#roleComboBox
+#
+$roleComboBox.Dock = [System.Windows.Forms.DockStyle]::Top
+$roleComboBox.FlatStyle = [System.Windows.Forms.FlatStyle]::Flat
+$roleComboBox.FormattingEnabled = $true
+$roleComboBox.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]50,[System.Int32]118))
+$roleComboBox.Margin = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]50,[System.Int32]10,[System.Int32]50,[System.Int32]0))
+$roleComboBox.Name = [System.String]'roleComboBox'
+$roleComboBox.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]303,[System.Int32]24))
+$roleComboBox.TabIndex = [System.Int32]1
+#
+#label3
+#
+$label3.AutoSize = $true
+$label3.Dock = [System.Windows.Forms.DockStyle]::Fill
+$label3.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @([System.Int32]3,[System.Int32]0))
+$label3.Name = [System.String]'label3'
+$label3.Padding = (New-Object -TypeName System.Windows.Forms.Padding -ArgumentList @([System.Int32]45,[System.Int32]0,[System.Int32]0,[System.Int32]0))
+$label3.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @([System.Int32]397,[System.Int32]108))
+$label3.TabIndex = [System.Int32]2
+$label3.Text = [System.String]'Which role should this group have?'
+$label3.TextAlign = [System.Drawing.ContentAlignment]::BottomLeft
+#
 #WarriorRange
 #
 $WarriorRange.AutoScaleDimensions = (New-Object -TypeName System.Drawing.SizeF -ArgumentList @([System.Single]96,[System.Single]96))
@@ -1635,27 +1631,13 @@ $buttonPanel.ResumeLayout($false)
 $informationPanel.ResumeLayout($false)
 $rolePanel.ResumeLayout($false)
 $tableLayoutPanel17.ResumeLayout($false)
-$tableLayoutPanel18.ResumeLayout($false)
-$groupBox6.ResumeLayout($false)
-$groupBox5.ResumeLayout($false)
-$groupBox4.ResumeLayout($false)
-$groupBox3.ResumeLayout($false)
-$envPanel.ResumeLayout($false)
-$envPanel.PerformLayout()
-$tableLayoutPanel7.ResumeLayout($false)
-$tableLayoutPanel8.ResumeLayout($false)
-$tableLayoutPanel14.ResumeLayout($false)
-$groupBox2.ResumeLayout($false)
-$groupBox2.PerformLayout()
-$tableLayoutPanel9.ResumeLayout($false)
-$envConfigGroupBox.ResumeLayout($false)
-$tableLayoutPanel10.ResumeLayout($false)
 $tableLayoutPanel13.ResumeLayout($false)
-$tableLayoutPanel13.PerformLayout()
-$tableLayoutPanel12.ResumeLayout($false)
-$tableLayoutPanel12.PerformLayout()
-$tableLayoutPanel11.ResumeLayout($false)
-$tableLayoutPanel11.PerformLayout()
+$tableLayoutPanel21.ResumeLayout($false)
+$tableLayoutPanel21.PerformLayout()
+$tableLayoutPanel18.ResumeLayout($false)
+$groupBox4.ResumeLayout($false)
+$groupBox5.ResumeLayout($false)
+$groupBox3.ResumeLayout($false)
 $netPanel.ResumeLayout($false)
 $tableLayoutPanel2.ResumeLayout($false)
 $tableLayoutPanel3.ResumeLayout($false)
@@ -1674,6 +1656,20 @@ $tableLayoutPanel15.ResumeLayout($false)
 $tableLayoutPanel15.PerformLayout()
 $panel7.ResumeLayout($false)
 $panel7.PerformLayout()
+$envPanel.ResumeLayout($false)
+$envPanel.PerformLayout()
+$tableLayoutPanel7.ResumeLayout($false)
+$tableLayoutPanel8.ResumeLayout($false)
+$tableLayoutPanel14.ResumeLayout($false)
+$groupBox2.ResumeLayout($false)
+$groupBox2.PerformLayout()
+$tableLayoutPanel9.ResumeLayout($false)
+$envConfigGroupBox.ResumeLayout($false)
+$tableLayoutPanel10.ResumeLayout($false)
+$tableLayoutPanel11.ResumeLayout($false)
+$tableLayoutPanel11.PerformLayout()
+$panel10.ResumeLayout($false)
+$panel10.PerformLayout()
 $loginPanel.ResumeLayout($false)
 $loginInfoTable.ResumeLayout($false)
 $usernameGroupBox.ResumeLayout($false)
@@ -1693,6 +1689,8 @@ $panel5.ResumeLayout($false)
 $panel5.PerformLayout()
 $tableLayoutPanel4.ResumeLayout($false)
 $tableLayoutPanel4.PerformLayout()
+$tableLayoutPanel19.ResumeLayout($false)
+$tableLayoutPanel19.PerformLayout()
 $WarriorRange.ResumeLayout($false)
 Add-Member -InputObject $WarriorRange -Name saveButton -Value $saveButton -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name nextButton -Value $nextButton -MemberType NoteProperty
@@ -1746,21 +1744,12 @@ Add-Member -InputObject $WarriorRange -Name tableLayoutPanel9 -Value $tableLayou
 Add-Member -InputObject $WarriorRange -Name envImportTreeView -Value $envImportTreeView -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name tableLayoutPanel10 -Value $tableLayoutPanel10 -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name envConfigGroupBox -Value $envConfigGroupBox -MemberType NoteProperty
-Add-Member -InputObject $WarriorRange -Name tableLayoutPanel13 -Value $tableLayoutPanel13 -MemberType NoteProperty
-Add-Member -InputObject $WarriorRange -Name label4 -Value $label4 -MemberType NoteProperty
-Add-Member -InputObject $WarriorRange -Name tableLayoutPanel12 -Value $tableLayoutPanel12 -MemberType NoteProperty
-Add-Member -InputObject $WarriorRange -Name label3 -Value $label3 -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name tableLayoutPanel11 -Value $tableLayoutPanel11 -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name label2 -Value $label2 -MemberType NoteProperty
-Add-Member -InputObject $WarriorRange -Name envNameTextBox -Value $envNameTextBox -MemberType NoteProperty
-Add-Member -InputObject $WarriorRange -Name envMemDropDown -Value $envMemDropDown -MemberType NoteProperty
-Add-Member -InputObject $WarriorRange -Name envProcDropDown -Value $envProcDropDown -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name envSelectButton -Value $envSelectButton -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name envAddButton -Value $envAddButton -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name nameCol -Value $nameCol -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name vmCol -Value $vmCol -MemberType NoteProperty
-Add-Member -InputObject $WarriorRange -Name cpuCol -Value $cpuCol -MemberType NoteProperty
-Add-Member -InputObject $WarriorRange -Name ramCol -Value $ramCol -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name envSummaryListView -Value $envSummaryListView -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name tableLayoutPanel14 -Value $tableLayoutPanel14 -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name groupBox2 -Value $groupBox2 -MemberType NoteProperty
@@ -1788,14 +1777,21 @@ Add-Member -InputObject $WarriorRange -Name tableLayoutPanel17 -Value $tableLayo
 Add-Member -InputObject $WarriorRange -Name deployPanel -Value $deployPanel -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name tableLayoutPanel18 -Value $tableLayoutPanel18 -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name groupBox3 -Value $groupBox3 -MemberType NoteProperty
-Add-Member -InputObject $WarriorRange -Name button1 -Value $button1 -MemberType NoteProperty
-Add-Member -InputObject $WarriorRange -Name panel8 -Value $panel8 -MemberType NoteProperty
-Add-Member -InputObject $WarriorRange -Name groupBox6 -Value $groupBox6 -MemberType NoteProperty
-Add-Member -InputObject $WarriorRange -Name permNetListBox -Value $permNetListBox -MemberType NoteProperty
-Add-Member -InputObject $WarriorRange -Name groupBox5 -Value $groupBox5 -MemberType NoteProperty
-Add-Member -InputObject $WarriorRange -Name permVMListBox -Value $permVMListBox -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name groupBox4 -Value $groupBox4 -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name permGroupTreeView -Value $permGroupTreeView -MemberType NoteProperty
+Add-Member -InputObject $WarriorRange -Name groupBox5 -Value $groupBox5 -MemberType NoteProperty
+Add-Member -InputObject $WarriorRange -Name tableLayoutPanel20 -Value $tableLayoutPanel20 -MemberType NoteProperty
+Add-Member -InputObject $WarriorRange -Name panel10 -Value $panel10 -MemberType NoteProperty
+Add-Member -InputObject $WarriorRange -Name envNameTextBox -Value $envNameTextBox -MemberType NoteProperty
+Add-Member -InputObject $WarriorRange -Name roleAssignButton -Value $roleAssignButton -MemberType NoteProperty
+Add-Member -InputObject $WarriorRange -Name roleFlowLayoutPanel -Value $roleFlowLayoutPanel -MemberType NoteProperty
+Add-Member -InputObject $WarriorRange -Name tableLayoutPanel13 -Value $tableLayoutPanel13 -MemberType NoteProperty
+Add-Member -InputObject $WarriorRange -Name tableLayoutPanel21 -Value $tableLayoutPanel21 -MemberType NoteProperty
+Add-Member -InputObject $WarriorRange -Name roleSelectedLabel -Value $roleSelectedLabel -MemberType NoteProperty
+Add-Member -InputObject $WarriorRange -Name roleSelectButton -Value $roleSelectButton -MemberType NoteProperty
+Add-Member -InputObject $WarriorRange -Name tableLayoutPanel19 -Value $tableLayoutPanel19 -MemberType NoteProperty
+Add-Member -InputObject $WarriorRange -Name label3 -Value $label3 -MemberType NoteProperty
+Add-Member -InputObject $WarriorRange -Name roleComboBox -Value $roleComboBox -MemberType NoteProperty
 Add-Member -InputObject $WarriorRange -Name usernameGroupBox -Value $usernameGroupBox -MemberType NoteProperty
 }
 . InitializeComponent

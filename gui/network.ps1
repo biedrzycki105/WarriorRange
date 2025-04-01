@@ -1,5 +1,3 @@
-$global:networks = @{networks = @()}
-
 $netAddButton_Click = {
 	$text = $netTextBox.Text
 	$illegalNets = @()
@@ -18,8 +16,10 @@ $netAddButton_Click = {
 				$illegalNets += $_
 			}
 			
-			if ($global:networks["networks"] -contains $_) {
-				$duplicates += $_
+			if ($global:utils.networks["networks"].Keys.Count -gt 0) {
+				if ($global:networks["networks"] -contains $_) {
+					$duplicates += $_
+				}
 			}
 		}
 
@@ -41,14 +41,9 @@ $netAddButton_Click = {
 			if ($illegalNets -notcontains $_ -and $duplicates -notcontains $_) {
 				$netListView.Items.Add($_)
 
-				$global:networks["networks"] += $_
+				$global:utils.networks["networks"] += $_
 			}
 		}
 	}
-
-	
-
-	
-
 	$netTextBox.Text = ""
 }

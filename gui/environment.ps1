@@ -8,24 +8,12 @@ function ImportBaseVMs {
 
 $envSelectButton_Click = {
 	$envConfigGroupBox.Text = $envImportTreeView.SelectedNode.Text
-
 	$envNameTextBox.Text = ""
-	$envProcDropDown.Text = ""
-	$envMemDropDown.Text = ""
 }
 
 $envAddButton_Click = {
 	$name = $envNameTextBox.Text
 	$baseVM = $envConfigGroupBox.Text
-	$cpu = $envProcDropDown.Text
-	$ram = $envMemDropDown.Text
-
-	$empty = $false
-	foreach ($prop in @($name, $cpu, $ram)) {
-		if ([string]::IsNullOrWhiteSpace($prop)) {
-			$empty = $true
-		}
-	}
 
 	$items = $envSummaryListView.Items
 	$duplicate = $false
@@ -35,9 +23,9 @@ $envAddButton_Click = {
 		}
 	}
 
-	if ($empty) {
+	if ([string]::IsNullOrWhiteSpace($name)) {
 		[System.Windows.Forms.MessageBox]::Show(
-			("One or more values are missing."), # Message
+			("Please enter a name."), # Message
 			"Missing Values" # Window title
 		)
 	} elseif ($duplicate) {
@@ -47,14 +35,17 @@ $envAddButton_Click = {
 		)
 	} else {
 		$envNameTextBox.Text = ""
-		$envProcDropDown.Text = ""
-		$envMemDropDown.Text = ""
 
 		$listItem = New-Object System.Windows.Forms.ListViewItem($name)
 		$listItem.SubItems.Add($baseVM)
-		$listItem.SubItems.Add($cpu)
-		$listItem.SubItems.Add($ram)
 
 		$envSummaryListView.Items.Add($listItem)
+
+		$vm = @{
+			"name" = $name;
+			"base_vmid" = Get-PveVM | Where-Object -Property name -Match $baseVM | Select-Object -ExpandProperty vmid;
+		}
+
+		$global:utils.environment["vms"].Add($vm, $vm)
 	}	
 }

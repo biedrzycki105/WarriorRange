@@ -1,3 +1,6 @@
+### functions for creating a new roster
+
+# Remove sensitive or otherwise unusable users
 function CleanData {
 
 	param (
@@ -6,8 +9,7 @@ function CleanData {
 
 	$filter = ".+\$@", "cloudbase-init", "krbtgt" -join "|"
 
-	# Remove sensitive or otherwise unusable users
-	$filteredUsers = $users | Where {$_ -notmatch $filter}
+	$filteredUsers = $users | Where-Object {$_ -notmatch $filter}
 	
 	# Remove the @--- from each userid
 	$remainingUsers = $filteredUsers | ForEach-Object {$_.Split("@")[0]}
@@ -18,25 +20,71 @@ function CleanData {
 
 function ImportUsers {
 
-	$users = Get-PveAccessUsers
-	$users = $users.ToData().userid
+	$users = (Get-PveAccessUsers).ToData().userid
 	$filteredUsers = CleanData $users
 	
 	foreach ($user in $filteredUsers) {
-		$rosterCheckedListBox.Items.Add($user)
+		$rosterUserListBox.Items.Add($user)
 	}
+}
+
+$global:selectedItems = $null
+
+$rosterSelectButton_Click = {
+	$global:selectedItems = $rosterUserListBox.SelectedItems
+	$selectText.Text = "$($global:selectedItems.Count) user(s) have been selected."
 }
 
 $rosterAddButton_Click = {
-	$checkedItems = $rosterCheckedListBox.CheckedItems
+	$groupText = $groupTextBox.Text
 
-	foreach ($item in $checkedItems) {
-		if ($rosterFinalListBox.Items -notcontains $item) {
-			$rosterFinalListBox.Items.Add($item)
+	if ([string]::IsNullOrWhiteSpace($groupText) -or $groupText -notmatch "^[a-zA-Z0-9]+$") {
+		[System.Windows.Forms.MessageBox]::Show(
+			("Please enter a name for this group."), # Message
+			"Missing Name" # Window title
+		)
+	} elseif ($rosterUserListBox.SelectedItems.Count -eq 0) {
+		[System.Windows.Forms.MessageBox]::Show(
+			("No users have been selected."), # Message
+			"Missing Selection" # Window title
+		)
+	} else {
+		$duplicates = @()
+		foreach ($userItem in $global:selectedItems) {
+			if ($global:utils.roster.ContainsKey($groupText)) {
+				if ($global:roster[$groupText] -contains $userItem) {
+					$duplicates += $userItem
+				}
+			}
 		}
-	}
 
-	for ($i = 0; $i -lt $rosterCheckedListBox.Items.Count; $i += 1) {
-		$rosterCheckedListBox.SetItemCheckState($i, [System.Windows.Forms.CheckState]::Unchecked)
+		if ($duplicates.Count -gt 0) {
+			[System.Windows.Forms.MessageBox]::Show(
+				("One or more duplicate users were not added to the list."), # Message
+				"Duplicate Users" # Window title
+			)
+		}
+		
+		foreach ($user in $global:selectedItems) {
+			if ($duplicates -notcontains $user) {
+				$listViewItem = New-Object System.Windows.Forms.ListViewItem($user)
+				$listViewItem.SubItems.Add($groupText)
+				$rosterListView.Items.Add($listViewItem)
+
+				if (-not $global:utils.roster.ContainsKey($groupText)) {
+					$global:utils.roster[$groupText] = @()
+				}
+
+				$global:utils.roster[$groupText] += $user
+			}
+		}
+
+		for ($i = 0; $i -lt $rosterUserListBox.Items.Count; $i += 1) {
+			$rosterUserListBox.ClearSelected()
+		}
+
+		$selectText.Text = ""
+		$groupTextBox.Text = ""
 	}
 }
+
