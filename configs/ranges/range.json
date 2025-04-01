@@ -12,11 +12,23 @@
         "base_vmid": "3003"
       },
       "vm02": {
-        "name": "srvgui01",
+        "name": "ad01",
         "base_vmid": "3004"
       },
       "vm03": {
-        "name": "srvcore01",
+        "name": "dhcp01",
+        "base_vmid": "3005"
+      },
+      "vm04": {
+        "name": "xubuntu02",
+        "base_vmid": "3003"
+      },
+      "vm05": {
+        "name": "mgmt01",
+        "base_vmid": "3004"
+      },
+      "vm06": {
+        "name": "ad02",
         "base_vmid": "3005"
       }
     },
