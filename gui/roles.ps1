@@ -42,7 +42,7 @@ $roleSelectButton_Click = {
 }
 
 $roleAssignButton_Click = {
-	$node = $permGroupTreeView.SelectedNode.Text
+	$group = $permGroupTreeView.SelectedNode.Text
 	$role = $roleComboBox.Text
 
 	if (-not $role) {
@@ -50,45 +50,13 @@ $roleAssignButton_Click = {
 			("Please select a role"), # Message
 			"No role selected" # Window title
 		)
+	} else {
+		$tempItem = New-Object System.Windows.Forms.ListViewItem($group)
+		$tempItem.SubItems.Add($role)
+		$roleAssnListView.Items.Add($tempItem)
+
+		$global:utils.roles[$group] = $role
 	}
-
-	# Create a label
-	$newLabel = New-Object System.Windows.Forms.Label
-	$newLabel.Dock = [System.Windows.Forms.DockStyle]::Fill
-	$newLabel.Text = $node
-	$newLabel.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Nirmala UI',[System.Single]16,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-	$newLabel.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
-
-	# Create another label
-	$newLabel2 = New-Object System.Windows.Forms.Label
-	$newLabel2.Dock = [System.Windows.Forms.DockStyle]::Fill
-	$newLabel2.Text = $role
-	$newLabel2.Font = (New-Object -TypeName System.Drawing.Font -ArgumentList @([System.String]'Consolas',[System.Single]16,[System.Drawing.FontStyle]::Bold,[System.Drawing.GraphicsUnit]::Point,([System.Byte][System.Byte]0)))
-	$newLabel2.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
-
-	# Create a table layout
-	$newTable = New-Object System.Windows.Forms.TableLayoutPanel
-	$newTable.Dock = [System.Windows.Forms.DockStyle]::Fill
-	$newTable.RowCount = 2
-	$newTable.RowStyles.Add((New-Object System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent, 50)))
-	$newTable.RowStyles.Add((New-Object System.Windows.Forms.RowStyle -ArgumentList @([System.Windows.Forms.SizeType]::Percent, 50)))
-
-	$newTable.Controls.Add($newLabel)
-	$newTable.Controls.Add($newLabel2)
-
-	# Create a new panel
-	$newPanel = New-Object System.Windows.Forms.Panel
-	$newPanel.BackColor = "Window"
-	$newPanel.BorderStyle = "None"
-	$newPanel.Location = (New-Object -TypeName System.Drawing.Point -ArgumentList @(3, 3))
-	$newPanel.Size = (New-Object -TypeName System.Drawing.Size -ArgumentList @(200, 250))
-	$newPanel.Controls.Add($newTable)
-	
-
-
-	$roleFlowLayoutPanel.Controls.Add($newPanel)
-
-	if ($roleFlowLayoutPanel.Controls.Count -eq 0) {}
 
 	$roleSelectedLabel.Text = "Selected: none"
 }

@@ -9,7 +9,7 @@ function CleanData {
 
 	$filter = ".+\$@", "cloudbase-init", "krbtgt" -join "|"
 
-	$filteredUsers = $users | Where-Object {$_ -notmatch $filter}
+	$filteredUsers = $users | Where {$_ -notmatch $filter}
 	
 	# Remove the @--- from each userid
 	$remainingUsers = $filteredUsers | ForEach-Object {$_.Split("@")[0]}
@@ -49,40 +49,29 @@ $rosterAddButton_Click = {
 			"Missing Selection" # Window title
 		)
 	} else {
-		$duplicates = @()
-		foreach ($userItem in $global:selectedItems) {
-			if ($global:utils.roster.ContainsKey($groupText)) {
-				if ($global:roster[$groupText] -contains $userItem) {
-					$duplicates += $userItem
-				}
-			}
+		$rosterListView.Items.Clear()
+
+		#if (-not $global:utils.roster.ContainsKey($groupText)) {
+		#	$global:utils.roster[$groupText] = @()
+		#} else {
+		#	$global:utils.roster[$groupText]
+		#}
+
+		$global:utils.roster[$groupText] = @()
+
+		$rosterUserListBox.SelectedItems | ForEach-Object {
+			$global:utils.roster[$groupText] += $_
 		}
 
-		if ($duplicates.Count -gt 0) {
-			[System.Windows.Forms.MessageBox]::Show(
-				("One or more duplicate users were not added to the list."), # Message
-				"Duplicate Users" # Window title
-			)
-		}
-		
-		foreach ($user in $global:selectedItems) {
-			if ($duplicates -notcontains $user) {
-				$listViewItem = New-Object System.Windows.Forms.ListViewItem($user)
-				$listViewItem.SubItems.Add($groupText)
+		foreach ($group in $global:utils.roster.GetEnumerator()) {
+			foreach ($user in $group.value) {
+				$listViewItem = New-Object System.Windows.Forms.ListViewItem($group.key)
+				$listViewItem.SubItems.Add($user)
 				$rosterListView.Items.Add($listViewItem)
-
-				if (-not $global:utils.roster.ContainsKey($groupText)) {
-					$global:utils.roster[$groupText] = @()
-				}
-
-				$global:utils.roster[$groupText] += $user
 			}
 		}
 
-		for ($i = 0; $i -lt $rosterUserListBox.Items.Count; $i += 1) {
-			$rosterUserListBox.ClearSelected()
-		}
-
+		$rosterUserListBox.ClearSelected()
 		$selectText.Text = ""
 		$groupTextBox.Text = ""
 	}
