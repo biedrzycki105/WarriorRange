@@ -6,10 +6,10 @@ class WarriorRangeUtils {
 	[hashtable]$roles
 
 	### Initialize the class instance with blank values
-	WarriorRangeUtil() {
-		$this.roster = @{}
-		$this.environment = @{}
-		$this.networks = @{}
-		$this.roles = @{}
+	WarriorRangeUtils() {
+		$this.roster = [ordered]@{}
+		$this.environment = [ordered]@{"vms" = @{}}
+		$this.networks = [ordered]@{"networks" = @()}
+		$this.roles = [ordered]@{}
 	}
 }

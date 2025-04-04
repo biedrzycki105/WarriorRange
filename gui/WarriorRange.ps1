@@ -1,18 +1,17 @@
-using module ..\modules\WarriorRangeUtils\WarriorRangeUtils.psm1
+Import-Module -FilePath "..\modules\WarriorRangeUtils\WarriorRangeUtils.psm1"
 Import-Module Corsinvest.ProxmoxVE.Api
 
-. (Join-Path $PSScriptRoot 'testUI.designer.ps1')
+. (Join-Path $PSScriptRoot 'WarriorRange.designer.ps1')
 . (Join-Path $PSScriptRoot 'login.ps1')
 . (Join-Path $PSScriptRoot 'roster.ps1')
 . (Join-Path $PSScriptRoot 'environment.ps1')
 . (Join-Path $PSScriptRoot 'network.ps1')
 . (Join-Path $PSScriptRoot 'roles.ps1')
-. (Join-Path '.\summary.ps1')
+. (Join-Path $PSScriptRoot 'summary.ps1')
 
 Add-Type -AssemblyName PresentationFramework
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
-
 
 ### CONTROLS ----------------------------------------------------
 
@@ -113,6 +112,7 @@ $mainPanel_Load = {
 ### SETUP -----------------------------------------------------------
 
 $global:utils = [WarriorRangeUtils]::new()
+Write-Host $global:utils.roster.GetType()
 
 $loginPanel.Visible = $true
 $main.Visible = $false

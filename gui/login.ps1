@@ -6,7 +6,7 @@ $LoginButton_Click = {
 		"user" = $usernameTextBox.Text;
 		"domain" = $domainTextBox.Text;
 		"tokenName" = $tokenNameTextBox.Text;
-		"apiToken" = $tokenValueTextBox.Text;
+		"apiToken" = $tokenValueMaskedTextBox.Text;
 		"node" = $nodeTextBox.Text;
 	}
 

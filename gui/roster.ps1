@@ -51,17 +51,13 @@ $rosterAddButton_Click = {
 	} else {
 		$rosterListView.Items.Clear()
 
-		#if (-not $global:utils.roster.ContainsKey($groupText)) {
-		#	$global:utils.roster[$groupText] = @()
-		#} else {
-		#	$global:utils.roster[$groupText]
-		#}
-
 		$global:utils.roster[$groupText] = @()
 
 		$rosterUserListBox.SelectedItems | ForEach-Object {
 			$global:utils.roster[$groupText] += $_
 		}
+		
+		Write-Host $global:utils.roster[$groupText].Count
 
 		foreach ($group in $global:utils.roster.GetEnumerator()) {
 			foreach ($user in $group.value) {
