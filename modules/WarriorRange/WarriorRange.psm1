@@ -69,6 +69,7 @@ class WarriorRange{
         # Create the networks for the range based on the JSON configuration
         foreach($group in $this.roster.$roster_name.groups.PSObject.Properties.Name){
             foreach($user in $this.roster.$roster_name.groups.$group){
+                $username = $user -replace "@.*", ""
                 foreach($network in $this.range.$range_name.networks){
                     # Define the list of existing VNets
                     $vnet_inventory = Get-PveClusterSdnVnets | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty Data | Where-Object -Property Zone -match $range_name
@@ -84,7 +85,7 @@ class WarriorRange{
                     }
                     # Create the VNet ID and Network Name based on the JSON configuration
                     $vnet = "v$range_id$vnet_index"
-                    $network_name = "{0}-{1}-{2}" -f $range_name, $network, $user
+                    $network_name = "{0}-{1}-{2}" -f $range_name, $network, $username
                     # If a network is found that has the same name as the one being created, skip it. Otherwise, create the network
                     if ($null -ne ($vnet_inventory | Where-Object -Property Alias -match $network_name)){
                         Write-Host "Network $network_name already exists"
@@ -129,6 +130,7 @@ class WarriorRange{
         # For each user in the roster, loop through the VMs in the range and create a clone for each
         foreach($group in $this.roster.$roster_name.groups.PSObject.Properties.Name){
             foreach($user in $($this.roster.$roster_name.groups.$group)){
+                $username = $user -replace "@.*", ""
                 foreach ($vm in $this.range.$range_name.vms.PSObject.Properties.Name) {
                     # Get all the VMs that sit within the allocated range VMID set, and sort them from highest to lowest
                     $range_inventory = Get-PveVM -vmid ${range_id}:${range_stop} | Select-Object -ExpandProperty vmid| Sort-Object
@@ -141,7 +143,7 @@ class WarriorRange{
                         $vm_clone_id = $range_id 
                     }
                     # Gather JSON data and format into VM name and Base VM ID variables
-                    $vm_clone_name = "{0}-{1}-{2}" -f $range_name, $this.range.$range_name.vms.$vm.name, $user
+                    $vm_clone_name = "{0}-{1}-{2}" -f $range_name, $this.range.$range_name.vms.$vm.name, $username
                     $vm_base_id = $this.range.$range_name.vms.$vm.base_vmid
                     $base_pool = $this.range.$range_name.base_pool
                     $vm_base_node = Get-PvePoolsIdx -Poolid $base_pool -Type qemu | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty Data | Select-Object -ExpandProperty members | Where-Object -Property vmid -eq $vm_base_id | Select-Object -ExpandProperty Node
@@ -172,21 +174,21 @@ class WarriorRange{
 "@
         Write-Host $title -ForegroundColor Cyan
         $storage = $this.range.$range_name.storage
-        $domain = $this.roster.$roster_name.domain
         foreach($group in $this.roster.$roster_name.groups.PSObject.Properties.Name){
             $role = $this.range.$range_name.roles.$group
             foreach($user in $this.roster.$roster_name.groups.$group){
+                $username = $user -replace "@.*", ""
                 Write-Host "Assigning PVEPoolUser permissions to $user for pool $range_name"
-                Set-PveAccessAcl -Path /pool/$range_name -Users "$user@$domain" -Role "PVEPoolUser" 
+                Set-PveAccessAcl -Path /pool/$range_name -Users "$user" -Role "PVEPoolUser" 
                 Write-Host "Assigning PVEDatastoreUser permissions to $user for storage $storage"
-                Set-PveAccessAcl -Path /storage/$storage -Users "$user@$domain" -Role "PVEDatastoreUser" 
-                foreach($vmid in (Get-PveNodesQemu -Node $this.range.$range_name.node | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty Data | Where-Object -Property Name -like "$range_name*$user"| Select-Object -ExpandProperty vmid)){
+                Set-PveAccessAcl -Path /storage/$storage -Users "$user" -Role "PVEDatastoreUser" 
+                foreach($vmid in (Get-PveNodesQemu -Node $this.range.$range_name.node | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty Data | Where-Object -Property Name -like "$range_name*$username"| Select-Object -ExpandProperty vmid)){
                     Write-Host "Assigning $role permissions to $user for VM $vmid"
-                    Set-PveAccessAcl -Path /vms/$vmid -Users "$user@$domain" -Role $role 
+                    Set-PveAccessAcl -Path /vms/$vmid -Users "$user" -Role $role 
                 }
-                foreach($vnet in (Get-PveClusterSdnVnets | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty Data | Where-Object -Property Zone -match $range_name | Where-Object -Property Alias -like "*$user*" | Select-Object -ExpandProperty vnet)){
+                foreach($vnet in (Get-PveClusterSdnVnets | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty Data | Where-Object -Property Zone -match $range_name | Where-Object -Property Alias -like "*$username*" | Select-Object -ExpandProperty vnet)){
                     Write-Host "Assigning $role permissions to $user for VNet $vnet"
-                    Set-PveAccessAcl -Path /sdn/zones/$range_name/$vnet -Users "$user@$domain" -Role $role  
+                    Set-PveAccessAcl -Path /sdn/zones/$range_name/$vnet -Users "$user" -Role $role  
                 }
             }
         }
@@ -239,24 +241,24 @@ class WarriorRange{
 "@
         Write-Host $title -ForegroundColor Cyan
         $storage = $this.range.$range_name.storage
-        $domain = $this.roster.$roster_name.domain
         foreach($group in $this.roster.$roster_name.groups.PSObject.Properties.Name){
             $role = $this.range.$range_name.roles.$group
             foreach($user in $this.roster.$roster_name.groups.$group){
+                $username = $user -replace "@.*", ""
                 # Remove permissions for the users in the roster for the range pool and storage
                 Write-Host "Removing permissions for $user on pool $range_name"
-                Set-PveAccessAcl -Path /pool/$range_name -Users "$user@$domain" -Roles "PVEPoolUser" -Delete
+                Set-PveAccessAcl -Path /pool/$range_name -Users "$user" -Roles "PVEPoolUser" -Delete
                 Write-Host "Removing permissions for $user on storage $storage"
-                Set-PveAccessAcl -Path /storage/$storage -Users "$user@$domain" -Roles "PVEDatastoreUser" -Delete
+                Set-PveAccessAcl -Path /storage/$storage -Users "$user" -Roles "PVEDatastoreUser" -Delete
                 # Remove permissions for the users in the roster for the VMs in the range
-                foreach($vmid in (Get-PveNodesQemu -Node $this.range.$range_name.node | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty Data | Where-Object -Property Name -like "$range_name*$user"| Select-Object -ExpandProperty vmid)){
+                foreach($vmid in (Get-PveNodesQemu -Node $this.range.$range_name.node | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty Data | Where-Object -Property Name -like "$range_name*$username"| Select-Object -ExpandProperty vmid)){
                     Write-Host "Removing $role permissions for $user on VM $vmid"
-                    Set-PveAccessAcl -Path /vms/$vmid -Users "$user@$domain" -Roles $role -Delete        
+                    Set-PveAccessAcl -Path /vms/$vmid -Users "$user" -Roles $role -Delete        
                 }
                 # Remove permissions for the users in the roster for the VNets in the range
-                foreach($vnet in (Get-PveClusterSdnVnets | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty Data | Where-Object -Property Zone -match $range_name | Where-Object -Property Alias -like "*$user*" | Select-Object -ExpandProperty vnet)){
+                foreach($vnet in (Get-PveClusterSdnVnets | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty Data | Where-Object -Property Zone -match $range_name | Where-Object -Property Alias -like "*$username*" | Select-Object -ExpandProperty vnet)){
                     Write-Host "Removing $role permissions for $user on VNet $vnet"
-                    Set-PveAccessAcl -Path /sdn/zones/$range_name/$vnet -Users "$user@$domain" -Roles $role -Delete
+                    Set-PveAccessAcl -Path /sdn/zones/$range_name/$vnet -Users "$user" -Roles $role -Delete
                  
                 }
             }
@@ -287,5 +289,14 @@ class WarriorRange{
         $this.CreateRangeVMs($roster_name, $range_name)
         Start-Sleep -Seconds 5
         $this.AssignRangePermissions($roster_name, $range_name)
+    }
+    StopRangeVMs([string]$roster_name, [string]$range_name){
+        # Stop all VMs in the range
+        $node = $this.range.$range_name.node
+        $vm_inventory = Get-PveNodesQemu -Node $node | Select-Object -ExpandProperty Response | Select-Object -ExpandProperty Data | Where-Object -Property Name -like "$range_name*" | Select-Object -ExpandProperty vmid
+        foreach($vm in $vm_inventory){
+            Write-Host "Stopping VM $vm"
+            Stop-PveNodesQemu -Vmid $vm -Node $node
+        }
     }
 }
